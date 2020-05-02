@@ -1,0 +1,14 @@
+{% extends 'base.jinja' %}
+
+{% block main %}
+  {% for section in sections %}
+    <section class="{{ section.name }}">
+      {% for chunk in section.chunks %}
+        {{ chunk|safe }}
+      {% endfor %}
+    </section>
+  {% endfor %}
+{% endblock %}
+
+{% block prompt_reload %}
+{% endblock %}

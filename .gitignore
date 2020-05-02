@@ -17,4 +17,6 @@ __pycache__/
 .vscode/
 .venv/
 /.auto-format
-/build.html
+/site/
+/assets/.libs/
+/assets/build/

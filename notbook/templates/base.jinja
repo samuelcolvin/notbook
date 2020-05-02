@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="/css/main.css" rel="stylesheet">
+    <title>{{ title }}</title>
+  </head>
+  <body>
+
+    <div class="row">
+      <div class="col-1 left"></div>
+      <div class="col-3 left title text-right pt-4">
+        <h1 class="h3">Notbook</h1>
+        <p>An experiment in displaying python scripts.</p>
+      </div>
+      <div class="col-6 pt-4">
+        {% block main %}
+        {% endblock %}
+      </div>
+    </div>
+  </body>
+  {% block prompt_reload %}
+    <script src="https://rawcdn.githack.com/samuelcolvin/foxglove/fbc87301a2470263e3ba45e56c7089f286a84a4e/reload.js"></script>
+  {% endblock %}
+</html>

@@ -1,0 +1,21 @@
+@import "DL/google-fonts";
+@import "bootstrap";
+@import "code";
+
+head, body {
+  font-family: 'Merriweather', serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3 {
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.left {
+  background: #f5f7f9;
+  min-height: 100vh;
+  &.title {
+    border-right: 4px solid $gray-400;
+  }
+}

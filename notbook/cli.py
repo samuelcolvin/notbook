@@ -9,7 +9,7 @@ cli = typer.Typer()
 
 @cli.command()
 def main(file: Path = typer.Argument(..., exists=True, file_okay=True, dir_okay=True, readable=True)):
-    build(file, Path('build.html'))
+    build(file, Path('site'))
 
 
 if __name__ == '__main__':

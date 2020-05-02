@@ -47,5 +47,8 @@ setup(
     zip_safe=True,
     install_requires=[
         'watchgod>=0.6',
+        'jinja2>=2.11.2',
+        'misaka>=2.1.1',
+        'pygments>=2.6.1',
     ],
 )
