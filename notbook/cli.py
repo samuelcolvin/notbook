@@ -2,15 +2,14 @@ from pathlib import Path
 
 import typer
 
-from .main import exec_file
+from .main import build
 
 cli = typer.Typer()
 
 
 @cli.command()
 def main(file: Path = typer.Argument(..., exists=True, file_okay=True, dir_okay=True, readable=True)):
-    code = exec_file(file)
-    print(code)
+    build(file, Path('build.html'))
 
 
 if __name__ == '__main__':
