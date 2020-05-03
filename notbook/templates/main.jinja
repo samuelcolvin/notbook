@@ -4,7 +4,15 @@
 {%- macro show_print(statements) -%}
     {%- for statement in statements -%}
       <pre class="print-statement">
-        {%- for arg in statement.args -%}{{ highlight(arg.format, arg.content) }} {% endfor -%}
+        {%- if statement|is_simple %}
+          {%- for arg in statement.args -%}
+            {{ arg.content }}{{ ' ' }}
+          {%- endfor %}
+        {%- else %}
+          {%- for arg in statement.args -%}
+{{ highlight(arg.format, arg.content) }}
+{% endfor -%}
+        {% endif -%}
       </pre>
     {%- endfor -%}
 {%- endmacro -%}
@@ -33,6 +41,9 @@
           {%- endfor -%}
         {% endif -%}
       </div>
+      {% if section.caption %}
+        <div class="text-muted text-center mt-1 small">{{ section.caption }}</div>
+      {% endif %}
     </section>
   {% endfor %}
 {% endblock %}

@@ -9,7 +9,7 @@ Here we have bullets:
 * another bullet
 """
 
-# { section Testing Section
+# { Testing Section
 question = 42
 foobar = 123
 print('answer:', question + 2)
@@ -26,16 +26,9 @@ print('last part of print')
 """md
 different
 """
-# { !silence
 print(1, 2, '3')
-# }
 
-# {show
-# TODO: captions, printing dataframes, plots
-# }show
-
-# { section
-
+# {
 import re
 RE_URI_NOT_ALLOWED = re.compile(r'[^a-zA-Z0-9_\-/.]')
 RE_HTML_SYMBOL = re.compile(r'&(?:#\d{2,}|[a-z0-9]{2,});')
@@ -51,4 +44,4 @@ def slugify(v, *, path_like=True):
         v = RE_HTML_SYMBOL.sub('', v)
         v = RE_TITLE_NOT_ALLOWED.sub('', v)
     return RE_REPEAT_DASH.sub('-', v).strip('_-')
-# }
+# } useful bit of code about this

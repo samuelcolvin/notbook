@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import List, Dict, Generator
 from jinja2 import Environment, select_autoescape, PackageLoader
 
-from .models import PrintBlock, TextBlock, CodeBlock, Section
+from .models import PrintBlock, TextBlock, CodeBlock, Section, PrintStatement
 from .render_tools import render_markdown, highlight_code
 
 THIS_DIR = Path(__file__).parent.resolve()
@@ -13,6 +13,9 @@ def render(sections: List[Section]) -> Dict[Path, str]:
     env = Environment(loader=PackageLoader('notbook'), autoescape=select_autoescape(['html', 'xml']))
     env.globals.update(
         highlight=highlight_code,
+    )
+    env.filters.update(
+        is_simple=is_simple
     )
     template = env.get_template('main.jinja')
     return {
@@ -28,6 +31,7 @@ def render_sections(sections: List[Section]) -> Generator[Dict[str, str], None, 
         d = dict(
             name=re.sub(r'(?<!^)(?=[A-Z])', '-', b.__class__.__name__.replace('Block', 'Section')).lower(),
             title=section.title,
+            caption=section.caption,
         )
         if isinstance(b, TextBlock):
             d['html'] = b.content if b.format == 'html' else render_markdown(b.content)
@@ -52,3 +56,7 @@ def render_code(c: CodeBlock):
             yield line.statements
     if code:
         yield {'format': 'py', 'content': '\n'.join(code)}
+
+
+def is_simple(p: PrintStatement) -> bool:
+    return all(a.format == 'str' for a in p.args)

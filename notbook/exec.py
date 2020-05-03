@@ -84,17 +84,18 @@ class MakeSections:
         self.maybe_add_current_code()
 
     def section_divide(self, line: str) -> bool:
-        start = re.match(r' *# *{ *section *(.*)', line)
+        start = re.match(r' *# *{ *(.*)', line)
         if start:
             self.maybe_add_current_code()
             self.current_code = CodeBlock([])
             self.current_name = start.group(1) or None
             return True
-        elif re.match(r' *# *\}', line):
-            self.maybe_add_current_code()
+        end = re.match(r' *# *} *(.*)', line)
+        if end:
+            self.maybe_add_current_code(end.group(1) or None)
             return True
-        else:
-            return False
+
+        return False
 
     def triple_quote(self, first_line: str) -> bool:
         start = re.match(' *("""|\'\'\')(.*)', first_line)
@@ -123,8 +124,11 @@ class MakeSections:
             lines.append(line)
 
         if renderer:
+            was_in_section = bool(self.current_code)
             self.maybe_add_current_code()
             self.sections.append(Section(TextBlock('\n'.join(lines), renderer)))
+            if was_in_section:
+                self.current_code = CodeBlock([])
         elif self.current_code:
             self.current_code.lines.extend(lines)
         else:
@@ -145,9 +149,9 @@ class MakeSections:
             else:
                 self.sections.append(Section(PrintBlock([line])))
 
-    def maybe_add_current_code(self):
+    def maybe_add_current_code(self, caption: str = None):
         if self.current_code:
-            self.sections.append(Section(self.current_code, self.current_name))
+            self.sections.append(Section(self.current_code, self.current_name, caption))
             self.current_code = None
             self.current_name = None
 
