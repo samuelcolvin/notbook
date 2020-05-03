@@ -6,7 +6,7 @@ from pygments.formatters.html import HtmlFormatter
 from pygments.lexers import get_lexer_by_name
 from pygments.util import ClassNotFound
 
-__all__ = 'render_markdown', 'highlight_code', 'slugify'
+__all__ = 'render_markdown', 'code_block', 'highlight_code', 'slugify'
 
 MD_EXTENSIONS = 'fenced-code', 'strikethrough', 'no-intra-emphasis', 'tables'
 DL_REGEX = re.compile('<li>(.*?)::(.*?)</li>', re.S)
@@ -16,7 +16,7 @@ LI_REGEX = re.compile('<li>(.*?)</li>', re.S)
 class CustomHtmlRenderer(HtmlRenderer):
     @staticmethod
     def blockcode(text, lang):
-        return highlight_code(lang, text)
+        return code_block(lang, text)
 
     @staticmethod
     def list(content, is_ordered, is_block):
@@ -43,19 +43,22 @@ def render_markdown(md: str) -> str:
     return md_to_html(md)
 
 
-def highlight_code(lang: str, code: str) -> str:
+def code_block(lang: str, code: str) -> str:
+    return f'<div><pre class="code-block">{highlight_code(lang, code)}</pre></div>'
+
+
+def highlight_code(format: str, code: str) -> str:
     try:
-        lexer = get_lexer_by_name(lang, stripall=True)
+        lexer = get_lexer_by_name(format, stripall=True)
     except ClassNotFound:
         lexer = None
 
-    code = code.strip('\n')
-    debug(code)
     if lexer:
-        formatter = HtmlFormatter(cssclass='highlight')
-        return pyg_highlight(code, lexer, formatter)
+        formatter = HtmlFormatter(nowrap=True)
+        h = pyg_highlight(code, lexer, formatter).strip('\n')
+        return f'<span class="highlight">{h}</span>'
     else:
-        return f'<div class="raw"><pre>{escape_html(code)}</pre></div>'
+        return f'<span class="raw">{escape_html(code)}</span>'
 
 
 RE_URI_NOT_ALLOWED = re.compile(r'[^a-zA-Z0-9_\-/.]')

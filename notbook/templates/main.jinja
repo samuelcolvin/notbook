@@ -1,11 +1,38 @@
 {% extends 'base.jinja' %}
 
+{#{{- '&#8618;'|safe }} #}
+{%- macro show_print(statements) -%}
+    {%- for statement in statements -%}
+      <pre class="print-statement">
+        {%- for arg in statement.args -%}{{ highlight(arg.format, arg.content) }} {% endfor -%}
+      </pre>
+    {%- endfor -%}
+{%- endmacro -%}
+
 {% block main %}
   {% for section in sections %}
     <section class="{{ section.name }}">
-      {% for chunk in section.chunks %}
-        {{ chunk|safe }}
-      {% endfor %}
+      {% if section.title -%}
+        <h1>{{ section.title }}</h1>
+      {% endif -%}
+
+      <div>
+        {% if section.html -%}
+          {{ section.html|safe }}
+        {% elif section.print_statements -%}
+          {{ show_print(section.print_statements) }}
+        {% elif section.code -%}
+          {%- for chunk in section.code -%}
+            {%- if chunk.format -%}
+              <pre class="code-block">
+                {{- highlight(chunk.format, chunk.content) -}}
+              </pre>
+            {%- else -%}
+              {{ show_print(chunk) }}
+            {%- endif -%}
+          {%- endfor -%}
+        {% endif -%}
+      </div>
     </section>
   {% endfor %}
 {% endblock %}

@@ -2,19 +2,28 @@
 @import "bootstrap";
 @import "code";
 
-head, body {
+html, body {
   font-family: 'Merriweather', serif;
   margin: 0;
   padding: 0;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
   font-family: 'Titillium Web', sans-serif;
+}
+
+.main {
+  padding-bottom: 80px;
+}
+
+section {
+  margin-bottom: 1rem;
 }
 
 .left {
   background: #f5f7f9;
   min-height: 100vh;
+  height: auto;
   &.title {
     border-right: 4px solid $gray-400;
   }

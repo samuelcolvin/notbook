@@ -2,15 +2,40 @@
 
 @import "variables";
 
-.highlight, .raw {
-  background: $code-background;
-  border-radius: $border-radius;
-  padding: 0.75rem 1.25rem;
-  margin: 0.5rem 0 1rem;
-  pre {
-    margin-bottom: 0;
-    color: $code-color;
+//.code-block {
+//  background: $code-background;
+//  border-radius: $border-radius;
+//  padding: 0.75rem 1.25rem;
+//  margin: 0.5rem 0 1rem;
+//}
+
+.code-block, .print-statement {
+  margin: 0;
+  font-family: $font-family-monospace;
+  color: $code-color;
+  padding: 0.5rem 1.25rem;
+  border-bottom: 1px solid $gray-600;
+  &:first-child {
+    border-radius: $border-radius $border-radius 0 0;
   }
+  &:last-child {
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+    border-bottom: 0;
+  }
+}
+
+.code-block {
+  background: $code-background;
+}
+
+.print-statement {
+  background: #1b1b1f;
+}
+
+.highlight, .raw, .print-statement {
+  font-family: $font-family-monospace;
+  color: $code-color;
 }
 
 $comment: $gray-500;
@@ -167,7 +192,7 @@ $comment: $gray-500;
   // Name.Builtin
   .nb {
     color: #8be9fd;
-    font-style: italic
+    //font-style: italic
   }
   // Name.Class
   .nc {
@@ -196,7 +221,7 @@ $comment: $gray-500;
   // Name.Label
   .nl {
     color: #8be9fd;
-    font-style: italic;
+    //font-style: italic;
   }
   // Name.Namespace
   .nn {

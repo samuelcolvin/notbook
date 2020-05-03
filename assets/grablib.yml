@@ -4,7 +4,7 @@ download:
     'bootstrap-4.4.1/scss/(.+)$': 'bootstrap-scss/'
 #    'bootstrap-4.4.1/js/src/(.+)$': 'bootstrap-js/'
 
-  'https://fonts.googleapis.com/css?family=Merriweather:400,400i,700,700i|Titillium+Web&display=swap': 'google-fonts.scss'
+  'https://fonts.googleapis.com/css?family=Merriweather:400,400i,700,700i|Titillium+Web|Ubuntu+Mono&display=swap': 'google-fonts.scss'
 
 build_root: '../site'
 debug: true

@@ -140,7 +140,10 @@ class MakeSections:
             else:
                 self.current_code.lines.append(PrintBlock([line]))
         else:
-            self.sections.append(Section(PrintBlock([line])))
+            if self.sections and isinstance(self.sections[-1].block, PrintBlock):
+                self.sections[-1].block.statements.append(line)
+            else:
+                self.sections.append(Section(PrintBlock([line])))
 
     def maybe_add_current_code(self):
         if self.current_code:
