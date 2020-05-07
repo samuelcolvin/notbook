@@ -33,7 +33,14 @@ class CodeBlock:
 
 
 @dataclass
+class PlotBlock:
+    html: str
+    line_no: int
+    format: Literal['bokeh'] = 'bokeh'
+
+
+@dataclass
 class Section:
-    block: Union[TextBlock, CodeBlock, PrintBlock]
+    block: Union[TextBlock, CodeBlock, PrintBlock, PlotBlock]
     title: Optional[str] = None
     caption: Optional[str] = None

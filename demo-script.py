@@ -1,3 +1,7 @@
+from notbook import show_plot
+from bokeh.plotting import figure
+from bokeh.sampledata.iris import flowers
+
 """md
 # This is a title
 
@@ -12,7 +16,7 @@ Here we have bullets:
 # { Testing Section
 question = 42
 foobar = 123
-print('answer:', question + 2)
+print('answer:', question + 2, print.__class__)
 # }
 
 """md
@@ -45,3 +49,17 @@ def slugify(v, *, path_like=True):
         v = RE_TITLE_NOT_ALLOWED.sub('', v)
     return RE_REPEAT_DASH.sub('-', v).strip('_-')
 # } useful bit of code about this
+
+
+colormap = {'setosa': 'red', 'versicolor': 'green', 'virginica': 'blue'}
+colors = [colormap[x] for x in flowers['species']]
+
+p = figure(title='Iris Morphology')
+p.xaxis.axis_label = 'Petal Length'
+p.yaxis.axis_label = 'Petal Width'
+
+p.circle(flowers['petal_length'], flowers['petal_width'], color=colors, fill_alpha=0.2, size=10)
+
+show_plot(p)
+
+print('this is last')

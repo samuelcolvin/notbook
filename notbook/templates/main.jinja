@@ -39,6 +39,8 @@
               {{ show_print(chunk) }}
             {%- endif -%}
           {%- endfor -%}
+        {% elif section.plot %}
+          {{ section.plot|safe }}
         {% endif -%}
       </div>
       {% if section.caption %}
@@ -46,6 +48,11 @@
       {% endif %}
     </section>
   {% endfor %}
+  {% if bokeh_plot %}
+    <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.0.2.min.js"
+          integrity="sha384-ufR9RFnRs6lniiaFvtJziE0YeidtAgBRH6ux2oUItHw5WTvE1zuk9uzhUU/FJXDp"
+          crossorigin="anonymous"></script>
+  {% endif %}
 {% endblock %}
 
 {% block prompt_reload %}

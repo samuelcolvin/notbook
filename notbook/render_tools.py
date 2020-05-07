@@ -1,5 +1,6 @@
 import re
 
+from markupsafe import Markup
 from misaka import HtmlRenderer, Markdown, escape_html
 from pygments import highlight as pyg_highlight
 from pygments.formatters.html import HtmlFormatter
@@ -47,7 +48,7 @@ def code_block(lang: str, code: str) -> str:
     return f'<div><pre class="code-block">{highlight_code(lang, code)}</pre></div>'
 
 
-def highlight_code(format: str, code: str) -> str:
+def highlight_code(format: str, code: str) -> Markup:
     try:
         lexer = get_lexer_by_name(format, stripall=True)
     except ClassNotFound:
@@ -56,9 +57,9 @@ def highlight_code(format: str, code: str) -> str:
     if lexer:
         formatter = HtmlFormatter(nowrap=True)
         h = pyg_highlight(code, lexer, formatter).strip('\n')
-        return f'<span class="highlight">{h}</span>'
+        return Markup(f'<span class="highlight">{h}</span>')
     else:
-        return f'<span class="raw">{escape_html(code)}</span>'
+        return Markup(f'<span class="raw">{escape_html(code)}</span>')
 
 
 RE_URI_NOT_ALLOWED = re.compile(r'[^a-zA-Z0-9_\-/.]')

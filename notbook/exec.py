@@ -3,13 +3,14 @@ import json
 import os
 import re
 import sys
+from operator import attrgetter
 from pathlib import Path
 from typing import Any, List, Optional, Union
-from unittest.mock import patch
 
 from devtools import PrettyFormat
 
-from .models import PrintArg, PrintStatement, PrintBlock, TextBlock, CodeBlock, Section
+from .models import PrintArg, PrintStatement, PrintBlock, TextBlock, CodeBlock, Section, PlotBlock
+from . import context
 
 __all__ = ('exec_file',)
 
@@ -21,28 +22,32 @@ pformat = PrettyFormat(simple_cutoff=LONG_LINE)
 def exec_file(file: Path) -> List[Section]:
     file_text = file.read_text('utf-8')
 
+    context.activate()
     os.environ['NOTBOOK'] = '1'
-    # sys.path.append(str(EXAMPLES_DIR))
-    code = compile(file.read_text(), file.name, 'exec')
-
     mp = MockPrint(file)
-    with patch('builtins.print') as mock_print:
-        mock_print.side_effect = mp
-        try:
-            exec(code)
-        except Exception:
-            raise
-            # tb = traceback.format_exception(*sys.exc_info())
+    exec_globals = dict(print=mp)
+    code = compile(file_text, file.name, 'exec')
+    try:
+        exec(code, exec_globals)
+    except Exception:
+        raise
+        # tb = traceback.format_exception(*sys.exc_info())
 
-    lines: List[Union[str, PrintStatement]] = file_text.split('\n')
+    lines: List[Union[str, PrintStatement, PlotBlock]] = file_text.split('\n')
 
-    for p in reversed(mp.statements):
-        for back in range(1, 100):
-            m = re.search(r'^( *)print\(', lines[p.line_no - back])
-            if m:
-                p.indent = len(m.group(1))
-                break
-        lines.insert(p.line_no, p)
+    extra = sorted(mp.statements + context.get(), key=attrgetter('line_no'), reverse=True)
+
+    for p in extra:
+        if isinstance(p, PrintStatement):
+            for back in range(1, 100):
+                m = re.search(r'^( *)print\(', lines[p.line_no - back])
+                if m:
+                    p.indent = len(m.group(1))
+                    break
+            lines.insert(p.line_no, p)
+        else:
+            assert isinstance(p, PlotBlock), p
+            lines.insert(p.line_no, p)
 
     return MakeSections(lines).sections
 
@@ -61,7 +66,7 @@ def simplify(obj):
 
 
 class MakeSections:
-    def __init__(self, lines: List[Union[str, PrintStatement]]):
+    def __init__(self, lines: List[Union[str, PrintStatement, PlotBlock]]):
         self.iter = iter(lines)
         self.sections: List[Section] = []
         self.current_name: Optional[str] = None
@@ -77,8 +82,10 @@ class MakeSections:
 
                     if self.current_code:
                         self.current_code.lines.append(line)
-                else:
+                elif isinstance(line, PrintStatement):
                     self.print_statement(line)
+                else:
+                    self.plot_block(line)
         except StopIteration:
             pass
         self.maybe_add_current_code()
@@ -136,18 +143,24 @@ class MakeSections:
             pass
         return True
 
-    def print_statement(self, line: PrintStatement):
-        assert isinstance(line, PrintStatement), line
+    def print_statement(self, print_statement: PrintStatement):
         if self.current_code:
             if self.current_code.lines and isinstance(self.current_code.lines[-1], PrintBlock):
-                self.current_code.lines[-1].statements.append(line)
+                self.current_code.lines[-1].statements.append(print_statement)
             else:
-                self.current_code.lines.append(PrintBlock([line]))
+                self.current_code.lines.append(PrintBlock([print_statement]))
         else:
             if self.sections and isinstance(self.sections[-1].block, PrintBlock):
-                self.sections[-1].block.statements.append(line)
+                self.sections[-1].block.statements.append(print_statement)
             else:
-                self.sections.append(Section(PrintBlock([line])))
+                self.sections.append(Section(PrintBlock([print_statement])))
+
+    def plot_block(self, plot: PlotBlock):
+        assert isinstance(plot, PlotBlock), plot
+        if self.current_code:
+            raise NotImplementedError('TODO')
+        else:
+            self.sections.append(Section(plot))
 
     def maybe_add_current_code(self, caption: str = None):
         if self.current_code:
@@ -156,13 +169,19 @@ class MakeSections:
             self.current_name = None
 
 
+default = object()
+
+
 class MockPrint:
     def __init__(self, file: Path):
         self.file = file
         self.statements: List[PrintStatement] = []
 
-    def __call__(self, *args, file=None, flush=None):
-        frame = inspect.currentframe().f_back.f_back.f_back
+    def __call__(self, *args, file=default, flush=None):
+        if file is not default:
+            print(*args, file=file, flush=flush)
+            return
+        frame = inspect.currentframe()
         if sys.version_info >= (3, 8):
             frame = frame.f_back
         if not self.file.samefile(frame.f_code.co_filename):

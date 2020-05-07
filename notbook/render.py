@@ -1,16 +1,16 @@
 import re
 from pathlib import Path
 from typing import List, Dict, Generator
-from jinja2 import Environment, select_autoescape, PackageLoader
+from jinja2 import Environment, PackageLoader
 
-from .models import PrintBlock, TextBlock, CodeBlock, Section, PrintStatement
+from .models import PrintBlock, TextBlock, CodeBlock, Section, PrintStatement, PlotBlock
 from .render_tools import render_markdown, highlight_code
 
 THIS_DIR = Path(__file__).parent.resolve()
 
 
 def render(sections: List[Section]) -> Dict[Path, str]:
-    env = Environment(loader=PackageLoader('notbook'), autoescape=select_autoescape(['html', 'xml']))
+    env = Environment(loader=PackageLoader('notbook'), autoescape=True)
     env.globals.update(
         highlight=highlight_code,
     )
@@ -21,6 +21,7 @@ def render(sections: List[Section]) -> Dict[Path, str]:
     return {
         Path('index.html'): template.render(
             sections=render_sections(sections),
+            bokeh_plot=any(isinstance(s.block, PlotBlock) and s.block.format == 'bokeh' for s in sections)
         )
     }
 
@@ -37,9 +38,11 @@ def render_sections(sections: List[Section]) -> Generator[Dict[str, str], None, 
             d['html'] = b.content if b.format == 'html' else render_markdown(b.content)
         elif isinstance(b, CodeBlock):
             d['code'] = render_code(b)
-        else:
-            assert isinstance(b, PrintBlock), b
+        elif isinstance(b, PrintBlock):
             d['print_statements'] = b.statements
+        else:
+            assert isinstance(b, PlotBlock), b
+            d['plot'] = b.html
         yield d
 
 
