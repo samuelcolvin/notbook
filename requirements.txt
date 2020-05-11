@@ -1,0 +1,12 @@
+# for the demo script
+bokeh==2.0.2
+pandas==1.0.3
+
+# doe linting
+black==19.10b0
+coverage==5.0.3
+flake8==3.7.9
+flake8-quotes==2.1.1
+isort==4.3.21
+git+https://github.com/PyCQA/pycodestyle@5c60447
+git+https://github.com/PyCQA/pyflakes@c688d2b

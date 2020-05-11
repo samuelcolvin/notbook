@@ -4,8 +4,8 @@ from time import time
 import typer
 
 from . import main
-from .watch import watch as _watch
 from .version import VERSION
+from .watch import watch as _watch
 
 cli = typer.Typer()
 file_default = typer.Argument(..., exists=True, file_okay=True, dir_okay=True, readable=True)
@@ -14,7 +14,7 @@ file_default = typer.Argument(..., exists=True, file_okay=True, dir_okay=True, r
 @cli.command()
 def build(
     file: Path = file_default,
-    output_dir: Path = typer.Argument(Path('site'), file_okay=False, dir_okay=True, readable=True)
+    output_dir: Path = typer.Argument(Path('site'), file_okay=False, dir_okay=True, readable=True),
 ):
     print(f'executing {file} and saving output to {output_dir}...')
     start = time()
@@ -26,7 +26,7 @@ def build(
 @cli.command()
 def watch(
     file: Path = file_default,
-    output_dir: Path = typer.Argument(Path('.live'), file_okay=False, dir_okay=True, readable=True)
+    output_dir: Path = typer.Argument(Path('.live'), file_okay=False, dir_okay=True, readable=True),
 ):
     _watch(file, output_dir)
 

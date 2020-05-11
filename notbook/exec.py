@@ -9,8 +9,8 @@ from typing import Any, List, Optional, Union
 
 from devtools import PrettyFormat
 
-from .models import PrintArg, PrintStatement, PrintBlock, TextBlock, CodeBlock, Section, PlotBlock
 from . import context
+from .models import CodeBlock, PlotBlock, PrintArg, PrintBlock, PrintStatement, Section, TextBlock
 
 __all__ = ('exec_file',)
 
@@ -54,11 +54,9 @@ def exec_file(file: Path) -> List[Section]:
 
 def simplify(obj):
     from dataclasses import is_dataclass, fields
+
     if is_dataclass(obj):
-        return {
-            '*type': obj.__class__.__name__,
-            **{f.name: simplify(getattr(obj, f.name)) for f in fields(obj)}
-        }
+        return {'*type': obj.__class__.__name__, **{f.name: simplify(getattr(obj, f.name)) for f in fields(obj)}}
     elif isinstance(obj, list):
         return [simplify(v) for v in obj]
     else:
@@ -199,8 +197,9 @@ def parse_print_value(value: Any) -> PrintArg:
     if not isinstance(value, (str, int, float)):
         return PrintArg(pformat(value), 'py')
     elif (
-        isinstance(value, str) and len(value) > 10 and
-        any(re.fullmatch(r, value, flags=re.DOTALL) for r in [r'{".+}', r'\[.+\]'])
+        isinstance(value, str)
+        and len(value) > 10
+        and any(re.fullmatch(r, value, flags=re.DOTALL) for r in [r'{".+}', r'\[.+\]'])
     ):
         try:
             obj = json.loads(value)

@@ -1,10 +1,11 @@
 import re
 from pathlib import Path
-from typing import List, Dict, Generator
+from typing import Dict, Generator, List
+
 from jinja2 import Environment, PackageLoader
 
-from .models import PrintBlock, TextBlock, CodeBlock, Section, PrintStatement, PlotBlock
-from .render_tools import render_markdown, highlight_code
+from .models import CodeBlock, PlotBlock, PrintBlock, PrintStatement, Section, TextBlock
+from .render_tools import highlight_code, render_markdown
 
 THIS_DIR = Path(__file__).parent.resolve()
 
@@ -17,14 +18,8 @@ reload_js_url = 'https://rawcdn.githack.com/samuelcolvin/foxglove/fbc87301a24702
 
 def render(sections: List[Section]) -> Dict[Path, str]:
     env = Environment(loader=PackageLoader('notbook'), autoescape=True)
-    env.globals.update(
-        highlight=highlight_code,
-        css_url=css_url,
-        reload_js_url=reload_js_url,
-    )
-    env.filters.update(
-        is_simple=is_simple
-    )
+    env.globals.update(highlight=highlight_code, css_url=css_url, reload_js_url=reload_js_url)
+    env.filters.update(is_simple=is_simple)
     template = env.get_template('main.jinja')
     return {
         Path('index.html'): template.render(

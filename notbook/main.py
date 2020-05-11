@@ -18,5 +18,3 @@ def prepare(output_dir: Path) -> None:
         assert output_dir.is_dir(), output_dir
         shutil.rmtree(output_dir)
     output_dir.mkdir(parents=True)
-
-

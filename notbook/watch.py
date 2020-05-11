@@ -7,9 +7,9 @@ from aiohttp import web
 from aiohttp.web_exceptions import HTTPMovedPermanently
 from aiohttp.web_fileresponse import FileResponse
 from aiohttp.web_response import Response
-from watchgod import awatch, PythonWatcher
+from watchgod import PythonWatcher, awatch
 
-from .main import prepare, build
+from .main import build, prepare
 
 __all__ = ('watch',)
 WS = 'websockets'
@@ -76,17 +76,16 @@ def watch(exec_file_path: Path, output_dir: Path):
     app = web.Application()
     app.on_startup.append(startup)
     app.update(
-        exec_file_path=exec_file_path,
-        output_dir=output_dir,
-        build=build,
-        websockets=set(),
+        exec_file_path=exec_file_path, output_dir=output_dir, build=build, websockets=set(),
     )
-    app.add_routes([
-        web.get('/', index),
-        web.get('/.devtools/up/', server_up),
-        web.get('/.devtools/reload-ws/', reload_websocket),
-        web.get('/index.html', moved),
-    ])
+    app.add_routes(
+        [
+            web.get('/', index),
+            web.get('/.devtools/up/', server_up),
+            web.get('/.devtools/reload-ws/', reload_websocket),
+            web.get('/index.html', moved),
+        ]
+    )
 
     port = 8000
     print(f'watching {exec_file_path}, serving output at http://localhost:{port}')

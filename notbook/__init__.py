@@ -1,14 +1,12 @@
 import inspect
 from types import FrameType
 
-
 from . import context
 from .models import PlotBlock
 
 try:
     from bokeh import plotting as bokeh_plotting
     from bokeh.embed import file_html as bokeh_file_html
-    from bokeh.embed.elements import div_for_render_item
     from bokeh.plotting import Figure as BokehFigure
 except ImportError:
     bokeh_plotting = None

@@ -50,5 +50,7 @@ setup(
         'jinja2>=2.11.2',
         'misaka>=2.1.1',
         'pygments>=2.6.1',
+        'devtools>=0.5.1',
+        'typer>=0.2.1',
     ],
 )
