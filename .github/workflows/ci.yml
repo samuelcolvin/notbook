@@ -36,3 +36,29 @@ jobs:
 
     - name: build
       run: notbook build demo-script.py
+
+  pages:
+    needs: test
+    if: "success() && github.ref == 'refs/heads/master'"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: set up python
+        uses: actions/setup-python@v1
+        with:
+          python-version: '3.8'
+
+      - name: install
+        run: make install
+
+      - name: build
+        run: notbook build demo-script.py
+
+      - name: deploy to pages
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: site
