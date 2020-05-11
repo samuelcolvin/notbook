@@ -8,11 +8,19 @@ from .render_tools import render_markdown, highlight_code
 
 THIS_DIR = Path(__file__).parent.resolve()
 
+css_url = (
+    'https://gistcdn.githack.com/samuelcolvin/647671890d647695930ff74f1ca5bfc2/raw/'
+    '3143aa748b26483e44be32c93da4e08c23292583/notbook.css'
+)
+reload_js_url = 'https://rawcdn.githack.com/samuelcolvin/foxglove/fbc87301a2470263e3ba45e56c7089f286a84a4e/reload.js'
+
 
 def render(sections: List[Section]) -> Dict[Path, str]:
     env = Environment(loader=PackageLoader('notbook'), autoescape=True)
     env.globals.update(
         highlight=highlight_code,
+        css_url=css_url,
+        reload_js_url=reload_js_url,
     )
     env.filters.update(
         is_simple=is_simple
@@ -21,7 +29,8 @@ def render(sections: List[Section]) -> Dict[Path, str]:
     return {
         Path('index.html'): template.render(
             sections=render_sections(sections),
-            bokeh_plot=any(isinstance(s.block, PlotBlock) and s.block.format == 'bokeh' for s in sections)
+            bokeh_plot=any(isinstance(s.block, PlotBlock) and s.block.format == 'bokeh' for s in sections),
+            title='Notbook',
         )
     }
 

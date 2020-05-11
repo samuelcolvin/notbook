@@ -196,7 +196,7 @@ def parse_print_value(value: Any) -> PrintArg:
     process objects passed to print and try to make them pretty
     """
     # attempt to build a pretty equivalent of the print output
-    if isinstance(value, (dict, list, tuple, set)):
+    if not isinstance(value, (str, int, float)):
         return PrintArg(pformat(value), 'py')
     elif (
         isinstance(value, str) and len(value) > 10 and
