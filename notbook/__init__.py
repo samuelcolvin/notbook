@@ -46,24 +46,6 @@ class FakeTemplate:
         self.context = context
 
 
-# html_template = """
-# <!DOCTYPE html>
-# <html lang="en">
-#   <head>
-#     <meta charset="utf-8">
-#     <title>Bokeh Application</title>
-#   </head>
-#   <body>
-#     {plot_div}
-#     {plot_script}
-#   </body>
-#     <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.0.2.min.js"
-#             integrity="sha384-ufR9RFnRs6lniiaFvtJziE0YeidtAgBRH6ux2oUItHw5WTvE1zuk9uzhUU/FJXDp"
-#             crossorigin="anonymous"></script>
-# </html>
-# """
-
-
 def bokeh_figure_to_html(fig, frame: FrameType, title: str = None):
     t = FakeTemplate()
     bokeh_file_html(fig, (None, None), template=t, title=title)

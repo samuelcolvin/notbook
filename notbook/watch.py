@@ -61,7 +61,7 @@ async def rebuild(app: web.Application):
         for ws in app[WS]:
             await ws.send_str('reload')
         c = len(app[WS])
-        print(f'run completed in {time() - start:0.3f}s, {c} browser{"" if c == 0 else "s"} updateds')
+        print(f'run completed in {time() - start:0.3f}s, {c} browser{"" if c == 1 else "s"} updated')
 
 
 async def startup(app):
