@@ -16,9 +16,11 @@ css_url = (
 reload_js_url = 'https://rawcdn.githack.com/samuelcolvin/foxglove/fbc87301a2470263e3ba45e56c7089f286a84a4e/reload.js'
 
 
-def render(sections: List[Section]) -> Dict[Path, str]:
+def render(sections: List[Section], *, reload: bool = False, dev: bool = False) -> Dict[Path, str]:
     env = Environment(loader=PackageLoader('notbook'), autoescape=True)
-    env.globals.update(highlight=highlight_code, css_url=css_url, reload_js_url=reload_js_url)
+    env.globals.update(highlight=highlight_code, css_url='/assets/main.css' if dev else css_url)
+    if reload:
+        env.globals['reload_js_url'] = '/assets/reload.js' if dev else reload_js_url
     env.filters.update(is_simple=is_simple)
     template = env.get_template('main.jinja')
     return {

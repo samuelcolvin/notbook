@@ -14,12 +14,19 @@
         <p>An experiment in displaying python scripts.</p>
       </div>
       <div class="col-6 pt-4 main">
+        {% if reload_js_url -%}
+          <div class="text-right">
+            <span class="h4">
+              <span id="connection-state" class="badge badge-secondary cursor-help">waiting...</span>
+            </span>
+          </div>
+        {%- endif %}
         {% block main %}
         {% endblock %}
       </div>
     </div>
   </body>
-  {% block reload_js_url %}
+  {% if reload_js_url -%}
     <script src="{{ reload_js_url }}"></script>
-  {% endblock %}
+  {%- endif %}
 </html>

@@ -4,7 +4,7 @@ from pathlib import Path
 from time import time
 
 from aiohttp import web
-from aiohttp.web_exceptions import HTTPMovedPermanently
+from aiohttp.web_exceptions import HTTPMovedPermanently, HTTPNotFound
 from aiohttp.web_fileresponse import FileResponse
 from aiohttp.web_response import Response
 from watchgod import PythonWatcher, awatch
@@ -15,13 +15,27 @@ __all__ = ('watch',)
 WS = 'websockets'
 
 
-async def index(request):
-    path = request.app['output_dir'] / 'index.html'
+async def static(request):
+    request_path = request.match_info['path'].lstrip('/')
+    directory: Path = request.app['output_dir'].resolve()
+    if request_path == '':
+        filepath = directory / 'index.html'
+    else:
+        try:
+            filepath = (directory / request_path).resolve()
+            filepath.relative_to(directory)
+        except Exception as exc:
+            # perm error or other kind!
+            raise HTTPNotFound() from exc
     for _ in range(20):
-        if path.exists():
+        if filepath.exists():
             break
-        await asyncio.sleep(100)
-    return FileResponse(path)
+        await asyncio.sleep(0.1)
+
+    if filepath.is_file():
+        return FileResponse(filepath)
+    else:
+        raise HTTPNotFound()
 
 
 async def server_up(request):
@@ -45,7 +59,7 @@ async def moved(request):
 
 
 def build_in_subprocess(exec_file_path: Path, output_dir: Path):
-    process = Process(target=build, args=(exec_file_path, output_dir))
+    process = Process(target=build, args=(exec_file_path, output_dir), kwargs=dict(reload=True))
     process.start()
     process.join()
 
@@ -80,10 +94,10 @@ def watch(exec_file_path: Path, output_dir: Path):
     )
     app.add_routes(
         [
-            web.get('/', index),
-            web.get('/.devtools/up/', server_up),
-            web.get('/.devtools/reload-ws/', reload_websocket),
+            web.get('/.reload/up/', server_up),
+            web.get('/.reload/ws/', reload_websocket),
             web.get('/index.html', moved),
+            web.get('/{path:.*}', static),
         ]
     )
 

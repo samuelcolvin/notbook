@@ -7,9 +7,11 @@ from .render import render
 __all__ = 'build', 'prepare'
 
 
-def build(exec_file_path: Path, output_dir: Path) -> None:
+def build(exec_file_path: Path, output_dir: Path, *, reload: bool = False, dev: bool = False) -> None:
+    if not reload and not dev:
+        prepare(output_dir)
     sections = exec_file(exec_file_path)
-    for path, content in render(sections).items():
+    for path, content in render(sections, reload=reload, dev=dev).items():
         (output_dir / path).write_text(content)
 
 

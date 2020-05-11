@@ -17,7 +17,7 @@
 {%- endmacro -%}
 
 {% block main %}
-  {% for section in sections %}
+  {%- for section in sections %}
     <section class="{{ section.name }}">
       {% if section.title -%}
         <h1>{{ section.title }}</h1>
@@ -46,8 +46,8 @@
         <div class="text-muted text-center mt-1 small">{{ section.caption }}</div>
       {% endif %}
     </section>
-  {% endfor %}
-  {% if bokeh_plot %}
+  {%- endfor %}
+  {%- if bokeh_plot %}
     <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.0.2.min.js"
           integrity="sha384-ufR9RFnRs6lniiaFvtJziE0YeidtAgBRH6ux2oUItHw5WTvE1zuk9uzhUU/FJXDp"
           crossorigin="anonymous"></script>

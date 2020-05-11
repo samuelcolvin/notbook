@@ -9,6 +9,7 @@ from .watch import watch as _watch
 
 cli = typer.Typer()
 file_default = typer.Argument(..., exists=True, file_okay=True, dir_okay=True, readable=True)
+dev_mode = False
 
 
 @cli.command()
@@ -18,8 +19,7 @@ def build(
 ):
     print(f'executing {file} and saving output to {output_dir}...')
     start = time()
-    main.prepare(output_dir)
-    main.build(file, output_dir)
+    main.build(file, output_dir, dev=dev_mode)
     print(f'build completed in {time() - start:0.3f}s')
 
 
