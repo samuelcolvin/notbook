@@ -1,14 +1,12 @@
 import inspect
 from types import FrameType
 
-
 from . import context
 from .models import PlotBlock
 
 try:
     from bokeh import plotting as bokeh_plotting
     from bokeh.embed import file_html as bokeh_file_html
-    from bokeh.embed.elements import div_for_render_item
     from bokeh.plotting import Figure as BokehFigure
 except ImportError:
     bokeh_plotting = None
@@ -44,24 +42,6 @@ class FakeTemplate:
 
     def render(self, context):
         self.context = context
-
-
-# html_template = """
-# <!DOCTYPE html>
-# <html lang="en">
-#   <head>
-#     <meta charset="utf-8">
-#     <title>Bokeh Application</title>
-#   </head>
-#   <body>
-#     {plot_div}
-#     {plot_script}
-#   </body>
-#     <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.0.2.min.js"
-#             integrity="sha384-ufR9RFnRs6lniiaFvtJziE0YeidtAgBRH6ux2oUItHw5WTvE1zuk9uzhUU/FJXDp"
-#             crossorigin="anonymous"></script>
-# </html>
-# """
 
 
 def bokeh_figure_to_html(fig, frame: FrameType, title: str = None):

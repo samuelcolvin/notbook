@@ -14,9 +14,9 @@ Here we have bullets:
 """
 
 # { Testing Section
-question = 42
+question = 422
 foobar = 123
-print('answer:', question + 2, print.__class__)
+print('answer:', question + 2)
 # }
 
 """md
@@ -61,5 +61,3 @@ p.yaxis.axis_label = 'Petal Width'
 p.circle(flowers['petal_length'], flowers['petal_width'], color=colors, fill_alpha=0.2, size=10)
 
 show_plot(p)
-
-print('this is last')

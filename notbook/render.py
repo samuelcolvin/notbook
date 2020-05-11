@@ -1,27 +1,35 @@
 import re
 from pathlib import Path
-from typing import List, Dict, Generator
+from typing import Dict, Generator, List
+
 from jinja2 import Environment, PackageLoader
 
-from .models import PrintBlock, TextBlock, CodeBlock, Section, PrintStatement, PlotBlock
-from .render_tools import render_markdown, highlight_code
+from .models import CodeBlock, PlotBlock, PrintBlock, PrintStatement, Section, TextBlock
+from .render_tools import highlight_code, render_markdown
 
 THIS_DIR = Path(__file__).parent.resolve()
 
+css_url = (
+    'https://gistcdn.githack.com/samuelcolvin/647671890d647695930ff74f1ca5bfc2/raw/'
+    'e857b84867ac2f375aa5c86af8b86b5d4c97d5c5/notbook.css'
+)
+reload_js_url = (
+    'https://rawcdn.githack.com/samuelcolvin/notbook/b6dd58381013059660a8780ac8e8a2ad689a00f1/assets/js/reload.js'
+)
 
-def render(sections: List[Section]) -> Dict[Path, str]:
+
+def render(sections: List[Section], *, reload: bool = False, dev: bool = False) -> Dict[Path, str]:
     env = Environment(loader=PackageLoader('notbook'), autoescape=True)
-    env.globals.update(
-        highlight=highlight_code,
-    )
-    env.filters.update(
-        is_simple=is_simple
-    )
+    env.globals.update(highlight=highlight_code, css_url='/assets/main.css' if dev else css_url)
+    if reload:
+        env.globals['reload_js_url'] = '/assets/reload.js' if dev else reload_js_url
+    env.filters.update(is_simple=is_simple)
     template = env.get_template('main.jinja')
     return {
         Path('index.html'): template.render(
             sections=render_sections(sections),
-            bokeh_plot=any(isinstance(s.block, PlotBlock) and s.block.format == 'bokeh' for s in sections)
+            bokeh_plot=any(isinstance(s.block, PlotBlock) and s.block.format == 'bokeh' for s in sections),
+            title='Notbook',
         )
     }
 

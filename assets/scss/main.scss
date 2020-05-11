@@ -8,10 +8,6 @@ html, body {
   padding: 0;
 }
 
-h1, h2, h3, h4 {
-  font-family: 'Titillium Web', sans-serif;
-}
-
 .main {
   padding-bottom: 80px;
 }
@@ -27,4 +23,8 @@ section {
   &.title {
     border-right: 4px solid $gray-400;
   }
+}
+
+.cursor-help {
+  cursor: help;
 }

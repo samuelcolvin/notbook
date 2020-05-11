@@ -3,23 +3,30 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="/css/main.css" rel="stylesheet">
+    <link href="{{ css_url }}" rel="stylesheet">
     <title>{{ title }}</title>
   </head>
   <body>
     <div class="row">
       <div class="col-1 left"></div>
       <div class="col-3 left title text-right pt-4">
-        <h1>Notbook</h1>
+        <h1>{{ title }}</h1>
         <p>An experiment in displaying python scripts.</p>
       </div>
       <div class="col-6 pt-4 main">
+        {% if reload_js_url -%}
+          <div class="text-right">
+            <span class="h4">
+              <span id="connection-state" class="badge badge-secondary cursor-help">waiting...</span>
+            </span>
+          </div>
+        {%- endif %}
         {% block main %}
         {% endblock %}
       </div>
     </div>
   </body>
-  {% block prompt_reload %}
-    <script src="https://rawcdn.githack.com/samuelcolvin/foxglove/fbc87301a2470263e3ba45e56c7089f286a84a4e/reload.js"></script>
-  {% endblock %}
+  {% if reload_js_url -%}
+    <script src="{{ reload_js_url }}"></script>
+  {%- endif %}
 </html>

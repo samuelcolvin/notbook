@@ -18,5 +18,7 @@ __pycache__/
 .venv/
 /.auto-format
 /site/
+/.live/
 /assets/.libs/
 /assets/build/
+/TODO.md

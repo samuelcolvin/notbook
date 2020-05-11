@@ -1,7 +1,7 @@
 # notbook
 
-**An argument that [Jupyter Notebooks](https://jupyter.org/) are conceptually flawed just as spreadsheets are - 
-the (python) world needs a successor.**
+An argument that [Jupyter Notebooks](https://jupyter.org/) are conceptually flawed just as spreadsheets are - 
+**the (python) world needs a successor.**
 
 To try and convince you of that I've built a quick demo of on alternative.
 
@@ -15,23 +15,25 @@ But before I show you that, I need to convince you notebooks have fundamental pr
 
 ### Answer 1: They both don't work with version control
 
-True, that's very annoying. Both show as blobs, it's impossible to clearly see what's changed in either between
-versions. 
+True, that's very annoying. Both `.xlsx` and `.ipynb` show as blobs, it's impossible to clearly see what's changed 
+in either between versions. 
 
 **But it's not the real problem, try again.**
 
 ### Answer 2: The logic they contain can't be directly used in production
 
 Another good try. It's virtually impossible to have clearly visible logic in either a notebook or an excel sheet
-which can also used in production. You end up copying the logic out, rewriting it and adding it to your production
-stack. Problems come when you want to modify the logic and share it with someone, now you have two (somewhat different)
+which can also be used in production. You end up copying the logic out, rewriting it and adding it to your production
+stack. 
+
+Problems come when you want to modify the logic and share it with someone again, now you have two (somewhat different)
 implementations to keep track of and keep identical.
 
 **But still not the fundamental common problem, try again...**
 
 ### Answer 3: Bugs are common since they're both easy to partially update
 
-Remember "ctrl + alt + shift + F9" in Excel? Go for coffee and wait for it to update, and hope nothing crashes, 
+Remember `ctrl + alt + shift + F9` in Excel? Go for coffee and wait for it to update, and hope nothing crashes, 
 search through all you sheets to see if anything has gone wrong. 
 Notebooks are no better - sections don't automatically 
 update when an earlier section is modified, so you end up running "Run All Cells" the whole time. 
@@ -115,9 +117,10 @@ A program that executes a python script, and renders an HTML document with:
   as highlighted python
 
 That document can be built either using:
-* `notbook build my-logic.py` - where the HTML document is built once and the process exists
-* or, `notbook watch my-logic.py` - where the file is watched and a web-server is started show the document,
-  when the file changes the HTML document is updated and the page automatically updated giving instant feedback
+* `notbook build my-logic.py` - where the HTML document is built once and the process exists, if execution raises
+  an exception, no document is built and the processes exits with code `1`.
+* or, `notbook watch my-logic.py` - where the file is watched and a web-server is started showing the document,
+  when the file changes the HTML document is updated and the page automatically updates giving instant feedback
 
 The python script(s) containing all logic:
  * only contain valid python syntax
@@ -146,6 +149,9 @@ There's much more this could do:
 * currently there's basic support for [bokeh](https://docs.bokeh.org/en/latest/index.html) plots but other 
   plotting libraries should be supported
 * stage caching so slow steps in calculations could be cached between executions
+* richer printing: currently [`devtools.debug`](https://github.com/samuelcolvin/python-devtools) is used to
+  print complex objects (e.g. not `str`, `int`, `float`), this should be replaced with an interactive tree-view
+  like chrome
 * server based mode - instead of running the python script locally and showing it on localhost, the python source
   is posted to a server which runs the script and renders the results at some URL for the develop (or anyone else
   with permissions) to view
