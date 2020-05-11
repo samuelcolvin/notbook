@@ -11,9 +11,11 @@ THIS_DIR = Path(__file__).parent.resolve()
 
 css_url = (
     'https://gistcdn.githack.com/samuelcolvin/647671890d647695930ff74f1ca5bfc2/raw/'
-    '3143aa748b26483e44be32c93da4e08c23292583/notbook.css'
+    'e857b84867ac2f375aa5c86af8b86b5d4c97d5c5/notbook.css'
 )
-reload_js_url = 'https://rawcdn.githack.com/samuelcolvin/foxglove/fbc87301a2470263e3ba45e56c7089f286a84a4e/reload.js'
+reload_js_url = (
+    'https://rawcdn.githack.com/samuelcolvin/notbook/b6dd58381013059660a8780ac8e8a2ad689a00f1/assets/js/reload.js'
+)
 
 
 def render(sections: List[Section], *, reload: bool = False, dev: bool = False) -> Dict[Path, str]:
