@@ -6,10 +6,15 @@ import scipy.optimize as opt
 """md
 _This is an example of a better way to work on and display numerical python code._
 
+[Here's](https://github.com/samuelcolvin/notbook/blob/master/demo-script.py) the input script used to generate
+this document.
+
+---
+
 # Logistic curve fitting example
 
-(Example is taken mostly from 
-[here](https://ipython-books.github.io/93-fitting-a-function-to-data-with-nonlinear-least-squares/))
+Example is taken mostly from 
+[here](https://ipython-books.github.io/93-fitting-a-function-to-data-with-nonlinear-least-squares/).
 
 We define a logistic function with four parameters:
 
