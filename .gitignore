@@ -5,6 +5,7 @@ __pycache__/
 *.cache
 .pytest_cache/
 .coverage.*
+/.DS_Store
 /.coverage
 /htmlcov/
 /build/

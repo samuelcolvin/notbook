@@ -116,17 +116,19 @@ A program that executes a python script, and renders an HTML document with:
 * (not yet built) link to imported python modules which can be rendered recursively as more hybrid documents or just 
   as highlighted python
 
-![Notbook watch mode screencast](https://github.com/samuelcolvin/notbook/blob/master/screen.gif "Notbook watch mode screencast")
+**[samuelcolvin.github.io/notbook/](https://samuelcolvin.github.io/notbook/)**
 
-To view the document rendered from the `demo-script.py` script in this repo, go to
-
-### [samuelcolvin.github.io/notbook/](https://samuelcolvin.github.io/notbook/)
+To view the document rendered from the `demo-script.py` script in this repo.
 
 That document can be built either using:
 * `notbook build my-logic.py` - where the HTML document is built once and the process exists, if execution raises
   an exception, no document is built and the processes exits with code `1`.
 * or, `notbook watch my-logic.py` - where the file is watched and a web-server is started showing the document,
   when the file changes the HTML document is updated and the page automatically updates giving almost instant feedback
+
+**watch mode in action:**
+
+![Notbook watch mode screencast](https://github.com/samuelcolvin/notbook/blob/master/screen.gif "Notbook watch mode screencast")
 
 The python script(s) containing all logic:
  * only contain valid python syntax
