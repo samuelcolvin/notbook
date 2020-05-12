@@ -38,6 +38,7 @@ jobs:
       run: notbook build demo-script.py
 
   pages:
+    name: 'Deploy to GitHub Pages'
     needs: test
     if: "success() && github.ref == 'refs/heads/master'"
     runs-on: ubuntu-latest
