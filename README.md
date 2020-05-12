@@ -116,10 +116,11 @@ A program that executes a python script, and renders an HTML document with:
 * (not yet built) link to imported python modules which can be rendered recursively as more hybrid documents or just 
   as highlighted python
 
-![Notbook watch mod screen capture](screen.fig "Notbook watch mod screen capture")
+![Notbook watch mode screencast](https://github.com/samuelcolvin/notbook/blob/master/screen.gif "Notbook watch mode screencast")
 
-**The document rendered from the `demo-script.py` script in this repo an be seen 
-[here](https://samuelcolvin.github.io/notbook/).**
+To view the document rendered from the `demo-script.py` script in this repo, go to
+
+### [samuelcolvin.github.io/notbook/](https://samuelcolvin.github.io/notbook/)
 
 That document can be built either using:
 * `notbook build my-logic.py` - where the HTML document is built once and the process exists, if execution raises
@@ -146,6 +147,8 @@ currently using notebooks or excel.
 
 * perhaps in some scenarios slightly slower than running code in an existing python process 
   (this is currently exacerbated by [this issue with bokeh](https://github.com/bokeh/bokeh/issues/10007))
+* probably some other stuff I can't think of right now
+* seriously I can't see the downsides of this relative to notebooks, please create and issue if you think differently
 
 ### Further enhancements
 
