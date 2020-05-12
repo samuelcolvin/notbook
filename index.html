@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://gistcdn.githack.com/samuelcolvin/647671890d647695930ff74f1ca5bfc2/raw/e857b84867ac2f375aa5c86af8b86b5d4c97d5c5/notbook.css" rel="stylesheet">
+    <link href="https://gistcdn.githack.com/samuelcolvin/647671890d647695930ff74f1ca5bfc2/raw/121978e152dba5e97657638da317eb91edf539c7/notbook.css" rel="stylesheet">
     <title>Notbook</title>
   </head>
   <body>
@@ -18,91 +18,79 @@
         
     <section class="text-section">
       <div>
-        <h1 id="1-this-is-a-title">This is a title</h1>
+        <h1 id="1-logistic-curve-fitting-example">Logistic curve fitting example</h1>
 
-<p>This should be a <strong>section</strong> of markdown.</p>
+<p>(Example is taken mostly from 
+<a href="https://ipython-books.github.io/93-fitting-a-function-to-data-with-nonlinear-least-squares/" target="_blank">here</a>)</p>
 
-<p>Here we have bullets:</p>
-<ul>
-<li>one bullet</li>
-<li>another bullet</li>
-</ul><p class="equation d-none">When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are
-  \[x = {-b \pm \sqrt{b^2-4ac} \over 2a}.\]
+<p>We define a logistic function with four parameters:</p>
+<p class="equation d-none">  \[f_{a,b,c,d}(x) = \frac{a}{1 + \exp\left(-c (x-d)\right)} + b\]
 </p>
         </div>
       
     </section>
     <section class="code-section">
-      <h1>Testing Section</h1>
       <div>
-        <pre class="code-block"><span class="highlight"><span class="n">question</span> <span class="o">=</span> <span class="mi">422</span>
-<span class="n">foobar</span> <span class="o">=</span> <span class="mi">123</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;answer:&#39;</span><span class="p">,</span> <span class="n">question</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span></span></pre><pre class="print-statement">answer: 424 </pre></div>
+        <pre class="code-block"><span class="highlight"><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">c</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">d</span><span class="p">)))</span> <span class="o">+</span> <span class="n">b</span></span></pre></div>
+      
+        <div class="text-muted text-center mt-1 small">The equation we&#39;ll try and fit</div>
       
     </section>
     <section class="text-section">
       <div>
-        <p>another section of <strong>markdown</strong>.</p>
+        <p>Define some random parameters:</p>
 
-        </div>
-      
-    </section>
-    <section class="print-section">
-      <div>
-        <pre class="print-statement">this should be shown as a standalone code block </pre><pre class="print-statement"><span class="highlight"><span class="p">{</span>
-    <span class="s1">&#39;foo&#39;</span><span class="p">:</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span>
-    <span class="mi">2</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-    <span class="mi">4</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
-    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
-<span class="p">}</span></span>
-<span class="highlight"><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span></span>
-</pre><pre class="print-statement">last part of print </pre>
-        </div>
-      
-    </section>
-    <section class="text-section">
-      <div>
-        <p>different</p>
-
-        </div>
-      
-    </section>
-    <section class="print-section">
-      <div>
-        <pre class="print-statement">1 2 3 </pre>
         </div>
       
     </section>
     <section class="code-section">
       <div>
-        <pre class="code-block"><span class="highlight"><span class="kn">import</span> <span class="nn">re</span>
-<span class="n">RE_URI_NOT_ALLOWED</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[^a-zA-Z0-9_\-/.]&#39;</span><span class="p">)</span>
-<span class="n">RE_HTML_SYMBOL</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&amp;(?:#\d{2,}|[a-z0-9]{2,});&#39;</span><span class="p">)</span>
-<span class="n">RE_TITLE_NOT_ALLOWED</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[^a-z0-9_\-]&#39;</span><span class="p">)</span>
-<span class="n">RE_REPEAT_DASH</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;-{2,}&#39;</span><span class="p">)</span>
-
-
-<span class="k">def</span> <span class="nf">slugify</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">path_like</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">path_like</span><span class="p">:</span>
-        <span class="n">v</span> <span class="o">=</span> <span class="n">RE_URI_NOT_ALLOWED</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">v</span> <span class="o">=</span> <span class="n">RE_HTML_SYMBOL</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-        <span class="n">v</span> <span class="o">=</span> <span class="n">RE_TITLE_NOT_ALLOWED</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">RE_REPEAT_DASH</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;_-&#39;</span><span class="p">)</span>
-
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;slugify:&#39;</span><span class="p">,</span> <span class="n">slugify</span><span class="p">(</span><span class="s1">&#39;This is - a sentence&#39;</span><span class="p">))</span></span></pre><pre class="print-statement">slugify: this-is-a-sentence </pre></div>
+        <pre class="code-block"><span class="highlight"><span class="n">a</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">b</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span></span></pre></div>
       
-        <div class="text-muted text-center mt-1 small">useful bit of code about this</div>
+    </section>
+    <section class="text-section">
+      <div>
+        <p>which are:</p>
+
+        </div>
+      
+    </section>
+    <section class="print-section">
+      <div>
+        <pre class="print-statement">a=0.8744 b=-2.0836 c=1.3389 d=0.4991 </pre>
+        </div>
+      
+    </section>
+    <section class="text-section">
+      <div>
+        <p>Now, we generate random data points by using the sigmoid function and adding a bit of noise:</p>
+
+        </div>
+      
+    </section>
+    <section class="code-section">
+      <div>
+        <pre class="code-block"><span class="highlight"><span class="n">n</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">y_model</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">y_model</span> <span class="o">+</span> <span class="n">a</span> <span class="o">*</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">)</span></span></pre></div>
+      
+    </section>
+    <section class="text-section">
+      <div>
+        <p>Plot that to see how it looks:</p>
+
+        </div>
       
     </section>
     <section class="plot-section">
       <div>
         
-            <div class="bk-root" id="36986406-96b1-4ce8-af4d-46acc1f3bcd7" data-root-id="1001"></div>
-<script type="application/json" id="1127">
-  {"991f3220-ed5c-47ca-9230-fd2c50a0f233":{"roots":{"references":[{"attributes":{"source":{"id":"1034"}},"id":"1038","type":"CDSView"},{"attributes":{},"id":"1023","type":"SaveTool"},{"attributes":{},"id":"1006","type":"DataRange1d"},{"attributes":{},"id":"1013","type":"BasicTicker"},{"attributes":{},"id":"1042","type":"BasicTickFormatter"},{"attributes":{"axis_label":"Petal Length","formatter":{"id":"1040"},"ticker":{"id":"1013"}},"id":"1012","type":"LinearAxis"},{"attributes":{"below":[{"id":"1012"}],"center":[{"id":"1015"},{"id":"1019"}],"left":[{"id":"1016"}],"renderers":[{"id":"1037"}],"sizing_mode":"stretch_both","title":{"id":"1002"},"toolbar":{"id":"1027"},"x_range":{"id":"1004"},"x_scale":{"id":"1008"},"y_range":{"id":"1006"},"y_scale":{"id":"1010"}},"id":"1001","subtype":"Figure","type":"Plot"},{"attributes":{},"id":"1008","type":"LinearScale"},{"attributes":{"axis":{"id":"1012"},"ticker":null},"id":"1015","type":"Grid"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"field":"fill_color"},"line_alpha":{"value":0.1},"line_color":{"field":"line_color"},"size":{"units":"screen","value":10},"x":{"field":"x"},"y":{"field":"y"}},"id":"1036","type":"Circle"},{"attributes":{"fill_alpha":{"value":0.2},"fill_color":{"field":"fill_color"},"line_color":{"field":"line_color"},"size":{"units":"screen","value":10},"x":{"field":"x"},"y":{"field":"y"}},"id":"1035","type":"Circle"},{"attributes":{"axis_label":"Petal Width","formatter":{"id":"1042"},"ticker":{"id":"1017"}},"id":"1016","type":"LinearAxis"},{"attributes":{},"id":"1017","type":"BasicTicker"},{"attributes":{"axis":{"id":"1016"},"dimension":1,"ticker":null},"id":"1019","type":"Grid"},{"attributes":{"overlay":{"id":"1026"}},"id":"1022","type":"BoxZoomTool"},{"attributes":{"data_source":{"id":"1034"},"glyph":{"id":"1035"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1036"},"selection_glyph":null,"view":{"id":"1038"}},"id":"1037","type":"GlyphRenderer"},{"attributes":{},"id":"1025","type":"HelpTool"},{"attributes":{"data":{"fill_color":["red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue"],"line_color":["red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","green","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue","blue"],"x":{"__ndarray__":"ZmZmZmZm9j9mZmZmZmb2P83MzMzMzPQ/AAAAAAAA+D9mZmZmZmb2PzMzMzMzM/s/ZmZmZmZm9j8AAAAAAAD4P2ZmZmZmZvY/AAAAAAAA+D8AAAAAAAD4P5qZmZmZmfk/ZmZmZmZm9j+amZmZmZnxPzMzMzMzM/M/AAAAAAAA+D/NzMzMzMz0P2ZmZmZmZvY/MzMzMzMz+z8AAAAAAAD4PzMzMzMzM/s/AAAAAAAA+D8AAAAAAADwPzMzMzMzM/s/ZmZmZmZm/j+amZmZmZn5P5qZmZmZmfk/AAAAAAAA+D9mZmZmZmb2P5qZmZmZmfk/mpmZmZmZ+T8AAAAAAAD4PwAAAAAAAPg/ZmZmZmZm9j8AAAAAAAD4PzMzMzMzM/M/zczMzMzM9D9mZmZmZmb2P83MzMzMzPQ/AAAAAAAA+D/NzMzMzMz0P83MzMzMzPQ/zczMzMzM9D+amZmZmZn5P2ZmZmZmZv4/ZmZmZmZm9j+amZmZmZn5P2ZmZmZmZvY/AAAAAAAA+D9mZmZmZmb2P83MzMzMzBJAAAAAAAAAEkCamZmZmZkTQAAAAAAAABBAZmZmZmZmEkAAAAAAAAASQM3MzMzMzBJAZmZmZmZmCkBmZmZmZmYSQDMzMzMzMw9AAAAAAAAADEDNzMzMzMwQQAAAAAAAABBAzczMzMzMEkDNzMzMzMwMQJqZmZmZmRFAAAAAAAAAEkBmZmZmZmYQQAAAAAAAABJAMzMzMzMzD0AzMzMzMzMTQAAAAAAAABBAmpmZmZmZE0DNzMzMzMwSQDMzMzMzMxFAmpmZmZmZEUAzMzMzMzMTQAAAAAAAABRAAAAAAAAAEkAAAAAAAAAMQGZmZmZmZg5AmpmZmZmZDUAzMzMzMzMPQGZmZmZmZhRAAAAAAAAAEkAAAAAAAAASQM3MzMzMzBJAmpmZmZmZEUBmZmZmZmYQQAAAAAAAABBAmpmZmZmZEUBmZmZmZmYSQAAAAAAAABBAZmZmZmZmCkDNzMzMzMwQQM3MzMzMzBBAzczMzMzMEEAzMzMzMzMRQAAAAAAAAAhAZmZmZmZmEEAAAAAAAAAYQGZmZmZmZhRAmpmZmZmZF0BmZmZmZmYWQDMzMzMzMxdAZmZmZmZmGkAAAAAAAAASQDMzMzMzMxlAMzMzMzMzF0BmZmZmZmYYQGZmZmZmZhRAMzMzMzMzFUAAAAAAAAAWQAAAAAAAABRAZmZmZmZmFEAzMzMzMzMVQAAAAAAAABZAzczMzMzMGkCamZmZmZkbQAAAAAAAABRAzczMzMzMFkCamZmZmZkTQM3MzMzMzBpAmpmZmZmZE0DNzMzMzMwWQAAAAAAAABhAMzMzMzMzE0CamZmZmZkTQGZmZmZmZhZAMzMzMzMzF0BmZmZmZmYYQJqZmZmZmRlAZmZmZmZmFkBmZmZmZmYUQGZmZmZmZhZAZmZmZmZmGEBmZmZmZmYWQAAAAAAAABZAMzMzMzMzE0CamZmZmZkVQGZmZmZmZhZAZmZmZmZmFEBmZmZmZmYUQJqZmZmZmRdAzczMzMzMFkDNzMzMzMwUQAAAAAAAABRAzczMzMzMFECamZmZmZkVQGZmZmZmZhRA","dtype":"float64","shape":[150]},"y":{"__ndarray__":"mpmZmZmZyT+amZmZmZnJP5qZmZmZmck/mpmZmZmZyT+amZmZmZnJP5qZmZmZmdk/MzMzMzMz0z+amZmZmZnJP5qZmZmZmck/mpmZmZmZuT+amZmZmZnJP5qZmZmZmck/mpmZmZmZuT+amZmZmZm5P5qZmZmZmck/mpmZmZmZ2T+amZmZmZnZPzMzMzMzM9M/MzMzMzMz0z8zMzMzMzPTP5qZmZmZmck/mpmZmZmZ2T+amZmZmZnJPwAAAAAAAOA/mpmZmZmZyT+amZmZmZnJP5qZmZmZmdk/mpmZmZmZyT+amZmZmZnJP5qZmZmZmck/mpmZmZmZyT+amZmZmZnZP5qZmZmZmbk/mpmZmZmZyT+amZmZmZnJP5qZmZmZmck/mpmZmZmZyT+amZmZmZm5P5qZmZmZmck/mpmZmZmZyT8zMzMzMzPTPzMzMzMzM9M/mpmZmZmZyT8zMzMzMzPjP5qZmZmZmdk/MzMzMzMz0z+amZmZmZnJP5qZmZmZmck/mpmZmZmZyT+amZmZmZnJP2ZmZmZmZvY/AAAAAAAA+D8AAAAAAAD4P83MzMzMzPQ/AAAAAAAA+D/NzMzMzMz0P5qZmZmZmfk/AAAAAAAA8D/NzMzMzMz0P2ZmZmZmZvY/AAAAAAAA8D8AAAAAAAD4PwAAAAAAAPA/ZmZmZmZm9j/NzMzMzMz0P2ZmZmZmZvY/AAAAAAAA+D8AAAAAAADwPwAAAAAAAPg/mpmZmZmZ8T/NzMzMzMz8P83MzMzMzPQ/AAAAAAAA+D8zMzMzMzPzP83MzMzMzPQ/ZmZmZmZm9j9mZmZmZmb2PzMzMzMzM/s/AAAAAAAA+D8AAAAAAADwP5qZmZmZmfE/AAAAAAAA8D8zMzMzMzPzP5qZmZmZmfk/AAAAAAAA+D+amZmZmZn5PwAAAAAAAPg/zczMzMzM9D/NzMzMzMz0P83MzMzMzPQ/MzMzMzMz8z9mZmZmZmb2PzMzMzMzM/M/AAAAAAAA8D/NzMzMzMz0PzMzMzMzM/M/zczMzMzM9D/NzMzMzMz0P5qZmZmZmfE/zczMzMzM9D8AAAAAAAAEQGZmZmZmZv4/zczMzMzMAEDNzMzMzMz8P5qZmZmZmQFAzczMzMzMAEAzMzMzMzP7P83MzMzMzPw/zczMzMzM/D8AAAAAAAAEQAAAAAAAAABAZmZmZmZm/j/NzMzMzMwAQAAAAAAAAABAMzMzMzMzA0BmZmZmZmYCQM3MzMzMzPw/mpmZmZmZAUBmZmZmZmYCQAAAAAAAAPg/ZmZmZmZmAkAAAAAAAAAAQAAAAAAAAABAzczMzMzM/D/NzMzMzMwAQM3MzMzMzPw/zczMzMzM/D/NzMzMzMz8P83MzMzMzABAmpmZmZmZ+T9mZmZmZmb+PwAAAAAAAABAmpmZmZmZAUAAAAAAAAD4P2ZmZmZmZvY/ZmZmZmZmAkAzMzMzMzMDQM3MzMzMzPw/zczMzMzM/D/NzMzMzMwAQDMzMzMzMwNAZmZmZmZmAkBmZmZmZmb+P2ZmZmZmZgJAAAAAAAAABEBmZmZmZmYCQGZmZmZmZv4/AAAAAAAAAEBmZmZmZmYCQM3MzMzMzPw/","dtype":"float64","shape":[150]}},"selected":{"id":"1046"},"selection_policy":{"id":"1045"}},"id":"1034","type":"ColumnDataSource"},{"attributes":{},"id":"1020","type":"PanTool"},{"attributes":{"text":"Iris Morphology"},"id":"1002","type":"Title"},{"attributes":{"bottom_units":"screen","fill_alpha":0.5,"fill_color":"lightgrey","left_units":"screen","level":"overlay","line_alpha":1.0,"line_color":"black","line_dash":[4,4],"line_width":2,"render_mode":"css","right_units":"screen","top_units":"screen"},"id":"1026","type":"BoxAnnotation"},{"attributes":{},"id":"1021","type":"WheelZoomTool"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_multi":null,"active_scroll":"auto","active_tap":"auto","tools":[{"id":"1020"},{"id":"1021"},{"id":"1022"},{"id":"1023"},{"id":"1024"},{"id":"1025"}]},"id":"1027","type":"Toolbar"},{"attributes":{},"id":"1004","type":"DataRange1d"},{"attributes":{},"id":"1024","type":"ResetTool"},{"attributes":{},"id":"1010","type":"LinearScale"},{"attributes":{},"id":"1045","type":"UnionRenderers"},{"attributes":{},"id":"1040","type":"BasicTickFormatter"},{"attributes":{},"id":"1046","type":"Selection"}],"root_ids":["1001"]},"title":"Bokeh Application","version":"2.0.2"}}
+            <div class="bk-root" id="54b93bf8-c38e-4aa4-8b70-411294b6a69a" data-root-id="1001"></div>
+<script type="application/json" id="1171">
+  {"08c585cc-a125-4e69-9947-be10b0e4c461":{"roots":{"references":[{"attributes":{},"id":"1059","type":"UnionRenderers"},{"attributes":{"bottom_units":"screen","fill_alpha":0.5,"fill_color":"lightgrey","left_units":"screen","level":"overlay","line_alpha":1.0,"line_color":"black","line_dash":[4,4],"line_width":2,"render_mode":"css","right_units":"screen","top_units":"screen"},"id":"1026","type":"BoxAnnotation"},{"attributes":{},"id":"1004","type":"DataRange1d"},{"attributes":{},"id":"1010","type":"LinearScale"},{"attributes":{},"id":"1013","type":"BasicTicker"},{"attributes":{"axis_label_text_font":"Ubuntu Mono, monospace","axis_label_text_font_size":"1.2rem","formatter":{"id":"1042"},"major_label_text_font_size":"1rem","ticker":{"id":"1013"}},"id":"1012","type":"LinearAxis"},{"attributes":{},"id":"1008","type":"LinearScale"},{"attributes":{"axis":{"id":"1012"},"ticker":null},"id":"1015","type":"Grid"},{"attributes":{"axis_label_text_font":"Ubuntu Mono, monospace","axis_label_text_font_size":"1.2rem","formatter":{"id":"1040"},"major_label_text_font_size":"1rem","ticker":{"id":"1017"}},"id":"1016","type":"LinearAxis"},{"attributes":{"below":[{"id":"1012"}],"center":[{"id":"1015"},{"id":"1019"},{"id":"1045"}],"left":[{"id":"1016"}],"renderers":[{"id":"1037"},{"id":"1050"}],"sizing_mode":"stretch_both","title":{"id":"1002"},"toolbar":{"id":"1027"},"x_range":{"id":"1004"},"x_scale":{"id":"1008"},"y_range":{"id":"1006"},"y_scale":{"id":"1010"}},"id":"1001","subtype":"Figure","type":"Plot"},{"attributes":{},"id":"1017","type":"BasicTicker"},{"attributes":{"axis":{"id":"1016"},"dimension":1,"ticker":null},"id":"1019","type":"Grid"},{"attributes":{"overlay":{"id":"1026"}},"id":"1022","type":"BoxZoomTool"},{"attributes":{"click_policy":"hide","items":[{"id":"1046"},{"id":"1060"}],"label_text_font":"Merriweather, serif","label_text_font_size":"1rem","location":"top_left"},"id":"1045","type":"Legend"},{"attributes":{"data":{"x":{"__ndarray__":"AAAAAAAAJMBDYt7OkJgjwIbEvJ0hMSPAyiabbLLJIsANiXk7Q2IiwFDrVwrU+iHAk0022WSTIcDXrxSo9SshwBoS83aGxCDAXXTRRRddIMBArV8pUOsfwMdxHMdxHB/ATjbZZJNNHsDU+pUCtX4dwFq/UqDWrxzA4YMPPvjgG8BoSMzbGRIbwO4MiXk7QxrAdNFFF110GcD7lQK1fqUYwIFav1Kg1hfACB988MEHF8CO4ziO4zgWwBWo9SsFahXAm2yyySabFMAiMW9nSMwTwKj1KwVq/RLAL7rooosuEsC1fqVArV8RwDxDYt7OkBDAhA8++OCDD8CSmLczJOYNwJ4hMW9nSAzAqqqqqqqqCsC4MyTm7QwJwMS8nSExbwfA0kUXXXTRBcDezpCYtzMEwOxXCtT6lQLA+OCDDz74AMAI1PqVArX+vyjm7QyJefu/QPjggw8++L9YCtT6lQL1v3Acx3Ecx/G/IF100UUX7b9QgVq/UqDmv4ClQK1fKeC/YJNNNtlk078Ab2dIzNu5vwBvZ0jM27k/YJNNNtlk0z+ApUCtXyngP1CBWr9SoOY/EF100UUX7T9wHMdxHMfxP1gK1PqVAvU/QPjggw8++D8g5u0MiXn7PwjU+pUCtf4/+OCDDz74AEDsVwrU+pUCQNzOkJi3MwRA0EUXXXTRBUDEvJ0hMW8HQLgzJObtDAlArKqqqqqqCkCcITFvZ0gMQJCYtzMk5g1AhA8++OCDD0A8Q2LezpAQQLR+pUCtXxFALrrooosuEkCo9SsFav0SQCIxb2dIzBNAmmyyySabFEAUqPUrBWoVQI7jOI7jOBZACB988MEHF0CAWr9SoNYXQPyVArV+pRhAdNFFF110GUDsDIl5O0MaQGhIzNsZEhtA4IMPPvjgG0Bcv1Kg1q8cQNT6lQK1fh1ATDbZZJNNHkDIcRzHcRwfQECtXylQ6x9AXHTRRRddIEAaEvN2hsQgQNavFKj1KyFAlE022WSTIUBQ61cK1PohQAyJeTtDYiJAyiabbLLJIkCGxLydITEjQERi3s6QmCNAAAAAAAAAJEA=","dtype":"float64","shape":[100]},"y":{"__ndarray__":"fS8aiGD9AsD2rICQcSX5vwukzuAcWwDAsPt0Z+YqAMAWfXB3YcP+vyYEKGoxgP+/p+k5zv6DA8DSfAsBchEAwG5jwGA6EAHAaHHlqOFKAcAo+XoVb0YBwG155HJ+NwHAWE+Ra8mXAcD/CuTD8TAAwL9UVH5FtwDAsK+d6WQxAsCmA+16UA0DwMEfdmPAfPy/MMv/hJwAAcB0gscqN1YCwI0ac9gBvvu/7JKMjQHy/78EcvYQF3YCwMr6XuvEOQHAfQSA7aN2AMAKQ5/XJh4BwKTLfwy8FQDAsu9+2wXF/7+qX0+jkND/v8cMyvmG6gHAEM2GH+fQAcD1L/+LMiwDwO0npiE31gDAmd5buIs/BMB572Z/bj0CwNb9NSuso/+/LcGUxgbjAcDPVrhMP08BwDrAWgNd8v6/8qPB72Fi/7/oANubs60AwM6kOTkk6ADAvhXw7EeTAsCfIUz6C3v+v/Rt7IkA1wDABBlTT0k/AMDqmBhgHh4AwL44xJ4YAwDA8S7ywYI1/b+8adaBaEP6v0bSH33K9Pq/vz5DHXMJ/b+imK8wsgz6v15fPDZHh/S/40gCa8f49b+WldSydJr4v81JTcS2Jfm/HhI+FzQ787+43b1fO37zv9WZ6r9gova/fCnDVBPV+L8mNYploxH0v5C8GWBOv/a/6jTQXpor7b/hMxsACpn0v9ooSug8vva/hho4soYT9r87lB6YzfTzv8hqgdVc8vO/Mn8ShYri7b9cTXeozNr2v1pE9iuigva/xCEgbqXA7b8KBRpv5+H2v56/UnCjO/K/ViZaVQSb7r/e7a+0JG3qv7RxWXjih+y/vDdnRRYz9r+AHd4u2Dz1v6DJWvLHDO6/N+PdzDBb9L84fOl+Givvv6HcivpLYfC/edYnH5T/8L91vNl0rAT3v9xtA6TrfPa/30lGJgCH87/5CukClFL0v2E7HtKQA+2/PCtJ03hl779sV3Ym56Twv254zehAG/O/bIT47Gor6b/nAAD7I8f1v1GEhQsg/vG/USqd2v7f87/yprK0Qcbyv7kh8AGXS/W/NzJwQVo69r8=","dtype":"float64","shape":[100]}},"selected":{"id":"1069"},"selection_policy":{"id":"1070"}},"id":"1047","type":"ColumnDataSource"},{"attributes":{},"id":"1025","type":"HelpTool"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_multi":null,"active_scroll":"auto","active_tap":"auto","tools":[{"id":"1020"},{"id":"1021"},{"id":"1022"},{"id":"1023"},{"id":"1024"},{"id":"1025"}]},"id":"1027","type":"Toolbar"},{"attributes":{"data":{"x":{"__ndarray__":"AAAAAAAAJMBDYt7OkJgjwIbEvJ0hMSPAyiabbLLJIsANiXk7Q2IiwFDrVwrU+iHAk0022WSTIcDXrxSo9SshwBoS83aGxCDAXXTRRRddIMBArV8pUOsfwMdxHMdxHB/ATjbZZJNNHsDU+pUCtX4dwFq/UqDWrxzA4YMPPvjgG8BoSMzbGRIbwO4MiXk7QxrAdNFFF110GcD7lQK1fqUYwIFav1Kg1hfACB988MEHF8CO4ziO4zgWwBWo9SsFahXAm2yyySabFMAiMW9nSMwTwKj1KwVq/RLAL7rooosuEsC1fqVArV8RwDxDYt7OkBDAhA8++OCDD8CSmLczJOYNwJ4hMW9nSAzAqqqqqqqqCsC4MyTm7QwJwMS8nSExbwfA0kUXXXTRBcDezpCYtzMEwOxXCtT6lQLA+OCDDz74AMAI1PqVArX+vyjm7QyJefu/QPjggw8++L9YCtT6lQL1v3Acx3Ecx/G/IF100UUX7b9QgVq/UqDmv4ClQK1fKeC/YJNNNtlk078Ab2dIzNu5vwBvZ0jM27k/YJNNNtlk0z+ApUCtXyngP1CBWr9SoOY/EF100UUX7T9wHMdxHMfxP1gK1PqVAvU/QPjggw8++D8g5u0MiXn7PwjU+pUCtf4/+OCDDz74AEDsVwrU+pUCQNzOkJi3MwRA0EUXXXTRBUDEvJ0hMW8HQLgzJObtDAlArKqqqqqqCkCcITFvZ0gMQJCYtzMk5g1AhA8++OCDD0A8Q2LezpAQQLR+pUCtXxFALrrooosuEkCo9SsFav0SQCIxb2dIzBNAmmyyySabFEAUqPUrBWoVQI7jOI7jOBZACB988MEHF0CAWr9SoNYXQPyVArV+pRhAdNFFF110GUDsDIl5O0MaQGhIzNsZEhtA4IMPPvjgG0Bcv1Kg1q8cQNT6lQK1fh1ATDbZZJNNHkDIcRzHcRwfQECtXylQ6x9AXHTRRRddIEAaEvN2hsQgQNavFKj1KyFAlE022WSTIUBQ61cK1PohQAyJeTtDYiJAyiabbLLJIkCGxLydITEjQERi3s6QmCNAAAAAAAAAJEA=","dtype":"float64","shape":[100]},"y":{"__ndarray__":"FPjmHTarAMBdH0cBNqsAwBFBw9s1qwDApW+YqjWrAMDvKyhqNasAwPkytBU1qwDArB0FpzSrAMCBPvUVNKsAwI4e11czqwDAJU6sXjKrAMDDux0YMasAwOUrImwvqwDA22c5Oy2rAMC21xpcKqsAwNfoq5gmqwDAoR4FqiGrAMA9+jozG6sAwEzBiLoSqwDA5edcoAerAMCRVp8T+aoAwLEkVgLmqgDAPRCKBc2qAMDIXPRGrKoAwKT0jV6BqgDAgkCEJUmqAMAn/ll7/6kAwD1JBvmeqQDAbvOsjCCpAMAhnQL3eqgAwDH8hSGipwDAc1xiQoamAMBgKgrAEqUAwGAGc8MsowDA1XiNZLGgAMBJcJVZc50AwCwyJhA4mQDANmhaGLSTAMDfbL3RhowAwNHuZlw1gwDAJq7g9SR3AMAKTiYslWcAwGbxZr6aUwDAiWSipxw6AMDbu3yt1RkAwPVh0pi74v+/3V8FTn9+/78cdjIZPAT/v1SuZV3Xcf6/Jw1BPGTG/b+ECO7guQL9v3d6iyzpKfy/iM+8SV5B+7+QyQtShVD6v9YypVnuX/m/JOsMKyB4+L+ytCyubaD3v2qK8LUg3va/eL8VlSY09r/+N64DOKP1v2/BGR5SKvW/ocqAKU3H9L86nHIvaXf0v+BkNUy7N/S/is6FqHYF9L8x7UWwFd7zv/Eeg8Vrv/O/1OxZq6en87/3hGA9TZXzv0jEaAsrh/O/1TAau05887/isPbO+XPzv4Dedp2XbfO//gC1wbRo87/ql0wH+GTzvxYhmK8cYvO/5plx4O1f87/cMF4KQ17zv0qzrRf9XPO/yoYkPARc878m9GVDRlvzv17blUK1WvO/yI0ml0Za878zGWUh8lnzv8E6HK2xWfO/KhWtfYBZ87+FQ2L1WlnzvyoCo1E+WfO/ouAidyhZ87+fzkzKF1nzv4l9CBELWfO/1JylWwFZ87+UAT3z+VjzvxJvPUz0WPO/UpEn/O9Y878oT7ix7Fjzv1Up7i7qWPO/CC95ROhY878/qz/O5ljzv1gAtrDlWPO/eKvX1uRY878=","dtype":"float64","shape":[100]}},"selected":{"id":"1058"},"selection_policy":{"id":"1059"}},"id":"1034","type":"ColumnDataSource"},{"attributes":{"source":{"id":"1047"}},"id":"1051","type":"CDSView"},{"attributes":{"fill_color":{"value":"#1f77b4"},"line_color":{"value":"#1f77b4"},"size":{"units":"screen","value":10},"x":{"field":"x"},"y":{"field":"y"}},"id":"1048","type":"Circle"},{"attributes":{},"id":"1069","type":"Selection"},{"attributes":{},"id":"1020","type":"PanTool"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#1f77b4"},"line_alpha":{"value":0.1},"line_color":{"value":"#1f77b4"},"size":{"units":"screen","value":10},"x":{"field":"x"},"y":{"field":"y"}},"id":"1049","type":"Circle"},{"attributes":{},"id":"1021","type":"WheelZoomTool"},{"attributes":{},"id":"1070","type":"UnionRenderers"},{"attributes":{},"id":"1023","type":"SaveTool"},{"attributes":{},"id":"1024","type":"ResetTool"},{"attributes":{},"id":"1006","type":"DataRange1d"},{"attributes":{"data_source":{"id":"1047"},"glyph":{"id":"1048"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1049"},"selection_glyph":null,"view":{"id":"1051"}},"id":"1050","type":"GlyphRenderer"},{"attributes":{"line_alpha":0.1,"line_dash":[6],"line_width":5,"x":{"field":"x"},"y":{"field":"y"}},"id":"1036","type":"Line"},{"attributes":{"align":"center","text":"Model and random data","text_font":"Titillium Web, sans-serif","text_font_size":{"value":"1.5rem"}},"id":"1002","type":"Title"},{"attributes":{"data_source":{"id":"1034"},"glyph":{"id":"1035"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1036"},"selection_glyph":null,"view":{"id":"1038"}},"id":"1037","type":"GlyphRenderer"},{"attributes":{"label":{"value":"model"},"renderers":[{"id":"1037"}]},"id":"1046","type":"LegendItem"},{"attributes":{"label":{"value":"random data"},"renderers":[{"id":"1050"}]},"id":"1060","type":"LegendItem"},{"attributes":{"line_dash":[6],"line_width":5,"x":{"field":"x"},"y":{"field":"y"}},"id":"1035","type":"Line"},{"attributes":{},"id":"1042","type":"BasicTickFormatter"},{"attributes":{},"id":"1040","type":"BasicTickFormatter"},{"attributes":{},"id":"1058","type":"Selection"},{"attributes":{"source":{"id":"1034"}},"id":"1038","type":"CDSView"}],"root_ids":["1001"]},"title":"Bokeh Application","version":"2.0.2"}}
 </script>
 <script type="text/javascript">
   (function() {
@@ -111,8 +99,8 @@
         (function(root) {
           function embed_document(root) {
             
-          var docs_json = document.getElementById('1127').textContent;
-          var render_items = [{"docid":"991f3220-ed5c-47ca-9230-fd2c50a0f233","root_ids":["1001"],"roots":{"1001":"36986406-96b1-4ce8-af4d-46acc1f3bcd7"}}];
+          var docs_json = document.getElementById('1171').textContent;
+          var render_items = [{"docid":"08c585cc-a125-4e69-9947-be10b0e4c461","root_ids":["1001"],"roots":{"1001":"54b93bf8-c38e-4aa4-8b70-411294b6a69a"}}];
           root.Bokeh.embed.embed_items(docs_json, render_items);
         
           }
@@ -140,6 +128,98 @@
     else document.addEventListener("DOMContentLoaded", fn);
   })();
 </script>
+        </div>
+      
+    </section>
+    <section class="text-section">
+      <div>
+        <p>We now assume that we only have access to the data points and not the underlying generative function. 
+These points could have been obtained during an experiment. </p>
+
+<p>By looking at the data, the points appear to approximately follow a sigmoid, so we may want to try to fit such a 
+curve to the points. 
+That&#39;s what curve fitting is about. </p>
+
+<p>SciPy&#39;s <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html" target="_blank"><code>curve_fit()</code></a> 
+function allows us to fit a curve defined by an 
+arbitrary Python function to the data:</p>
+
+        </div>
+      
+    </section>
+    <section class="code-section">
+      <div>
+        <pre class="code-block"><span class="highlight"><span class="p">(</span><span class="n">a_</span><span class="p">,</span> <span class="n">b_</span><span class="p">,</span> <span class="n">c_</span><span class="p">,</span> <span class="n">d_</span><span class="p">),</span> <span class="n">_</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">curve_fit</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span></span></pre></div>
+      
+    </section>
+    <section class="text-section">
+      <div>
+        <p>And use those parameters to estimate our underlying curve</p>
+
+        </div>
+      
+    </section>
+    <section class="code-section">
+      <div>
+        <pre class="code-block"><span class="highlight"><span class="n">y_fit</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">a_</span><span class="p">,</span> <span class="n">b_</span><span class="p">,</span> <span class="n">c_</span><span class="p">,</span> <span class="n">d_</span><span class="p">)</span></span></pre></div>
+      
+    </section>
+    <section class="plot-section">
+      <div>
+        
+            <div class="bk-root" id="268ee2f2-b5e9-458b-ab85-03b00baff980" data-root-id="1172"></div>
+<script type="application/json" id="1380">
+  {"7ef00221-24ea-427a-9c77-7082f9e32e8e":{"roots":{"references":[{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"#1f77b4"},"line_alpha":{"value":0.1},"line_color":{"value":"#1f77b4"},"size":{"units":"screen","value":10},"x":{"field":"x"},"y":{"field":"y"}},"id":"1220","type":"Circle"},{"attributes":{"data_source":{"id":"1218"},"glyph":{"id":"1219"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1220"},"selection_glyph":null,"view":{"id":"1222"}},"id":"1221","type":"GlyphRenderer"},{"attributes":{"data_source":{"id":"1232"},"glyph":{"id":"1233"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1234"},"selection_glyph":null,"view":{"id":"1236"}},"id":"1235","type":"GlyphRenderer"},{"attributes":{},"id":"1229","type":"Selection"},{"attributes":{"label":{"value":"random data"},"renderers":[{"id":"1221"}]},"id":"1231","type":"LegendItem"},{"attributes":{"axis_label_text_font":"Ubuntu Mono, monospace","axis_label_text_font_size":"1.2rem","formatter":{"id":"1213"},"major_label_text_font_size":"1rem","ticker":{"id":"1184"}},"id":"1183","type":"LinearAxis"},{"attributes":{"fill_color":{"value":"#1f77b4"},"line_color":{"value":"#1f77b4"},"size":{"units":"screen","value":10},"x":{"field":"x"},"y":{"field":"y"}},"id":"1219","type":"Circle"},{"attributes":{},"id":"1230","type":"UnionRenderers"},{"attributes":{"source":{"id":"1218"}},"id":"1222","type":"CDSView"},{"attributes":{},"id":"1211","type":"BasicTickFormatter"},{"attributes":{"data":{"x":{"__ndarray__":"AAAAAAAAJMBDYt7OkJgjwIbEvJ0hMSPAyiabbLLJIsANiXk7Q2IiwFDrVwrU+iHAk0022WSTIcDXrxSo9SshwBoS83aGxCDAXXTRRRddIMBArV8pUOsfwMdxHMdxHB/ATjbZZJNNHsDU+pUCtX4dwFq/UqDWrxzA4YMPPvjgG8BoSMzbGRIbwO4MiXk7QxrAdNFFF110GcD7lQK1fqUYwIFav1Kg1hfACB988MEHF8CO4ziO4zgWwBWo9SsFahXAm2yyySabFMAiMW9nSMwTwKj1KwVq/RLAL7rooosuEsC1fqVArV8RwDxDYt7OkBDAhA8++OCDD8CSmLczJOYNwJ4hMW9nSAzAqqqqqqqqCsC4MyTm7QwJwMS8nSExbwfA0kUXXXTRBcDezpCYtzMEwOxXCtT6lQLA+OCDDz74AMAI1PqVArX+vyjm7QyJefu/QPjggw8++L9YCtT6lQL1v3Acx3Ecx/G/IF100UUX7b9QgVq/UqDmv4ClQK1fKeC/YJNNNtlk078Ab2dIzNu5vwBvZ0jM27k/YJNNNtlk0z+ApUCtXyngP1CBWr9SoOY/EF100UUX7T9wHMdxHMfxP1gK1PqVAvU/QPjggw8++D8g5u0MiXn7PwjU+pUCtf4/+OCDDz74AEDsVwrU+pUCQNzOkJi3MwRA0EUXXXTRBUDEvJ0hMW8HQLgzJObtDAlArKqqqqqqCkCcITFvZ0gMQJCYtzMk5g1AhA8++OCDD0A8Q2LezpAQQLR+pUCtXxFALrrooosuEkCo9SsFav0SQCIxb2dIzBNAmmyyySabFEAUqPUrBWoVQI7jOI7jOBZACB988MEHF0CAWr9SoNYXQPyVArV+pRhAdNFFF110GUDsDIl5O0MaQGhIzNsZEhtA4IMPPvjgG0Bcv1Kg1q8cQNT6lQK1fh1ATDbZZJNNHkDIcRzHcRwfQECtXylQ6x9AXHTRRRddIEAaEvN2hsQgQNavFKj1KyFAlE022WSTIUBQ61cK1PohQAyJeTtDYiJAyiabbLLJIkCGxLydITEjQERi3s6QmCNAAAAAAAAAJEA=","dtype":"float64","shape":[100]},"y":{"__ndarray__":"OzsVnaX+AMA8eRNppf4AwLnBfCWl/gDArPKlzaT+AMA32H1bpP4AwLnlIcej/gDAkctSBqP+AMA1Sb8Lov4AwE65GMag/gDA8hbhHp/+AMB+Xd34nP4AwBXTEC6a/gDAxZgdjZb+AMB6M9zVkf4AwAHs7bSL/gDAgfH7vYP+AMB34j1kef4AwEozxPBr/gDAwtTbdVr+AMA3662+Q/4AwBER/Tkm/gDACFmN3v/9AMAH01cHzv0AwAM5H0WN/QDAaa1JIjn9AMDJnwHVy/wAwC8Xg9o9/ADAIfwWdYX7AMBEHIgElvoAwFUvzS5f+QDA0vg3zMv3AMBX7sSHwPUAwIbxWiEa8wDA/olVPavvAMDmJWmrOesAwF8cShB75QDAsFH64xDeAMB64zvGg9QAwJQPaEk+yADAJl4/ioe4AMDdVa1DfqQAwHGzN5IViwDAxkLpTxVrAMCv0CnIIEMAwOi/u0THEQDAlfhfVUSr/79xDdyEBhv/v9HiNNlkcf6/J+aS0meu/b+C2aW1ENT8v4qk6B6i5vu/3pVPGobs+r8lwDUPvO35v/G99uTg8vi/oI5i2wwE+L9ywmsc1Sf3vytFtlavYva/zg+Trs229b9WUbhBYCT1v1hV1CcSqvS/GaE8VJZF9L8ICGFEJfTzv4yN/HbcsvO/XE3+Vf1+878CH3VnEFbzv0qMIiP0NfO/lbdpiN4c8790W40ZVwnzv9ZcszEt+vK/Hl4TOW3u8r8CUL4oVuXyvwkUnRdQ3vK/2r2AGOTY8r+KsDlwtdTyv/Q7Wgl80fK/8IIY/f/O8r/+6GYFFs3yv3rNna6cy/K/FAXcI3rK8r+8Ctd2msnyv1anRknuyPK/Fh/9wmnI8r/zFe7DA8jyv3154US1x/K/OZVk3HjH8r/wltBfSsfyv/rhCpomx/K/n6kOEwvH8r8+nWvk9cbyv7glw5flxvK/mAj6DNnG8r8i6Flmz8byv0iHRfnHxvK/Eq1yQsLG8r81P9rcvcbyvyrNvnq6xvK/0H5O4LfG8r8op4Hftcbyv+wJ7VS0xvK/tq1PJbPG8r8=","dtype":"float64","shape":[100]}},"selected":{"id":"1258"},"selection_policy":{"id":"1259"}},"id":"1232","type":"ColumnDataSource"},{"attributes":{},"id":"1181","type":"LinearScale"},{"attributes":{"data":{"x":{"__ndarray__":"AAAAAAAAJMBDYt7OkJgjwIbEvJ0hMSPAyiabbLLJIsANiXk7Q2IiwFDrVwrU+iHAk0022WSTIcDXrxSo9SshwBoS83aGxCDAXXTRRRddIMBArV8pUOsfwMdxHMdxHB/ATjbZZJNNHsDU+pUCtX4dwFq/UqDWrxzA4YMPPvjgG8BoSMzbGRIbwO4MiXk7QxrAdNFFF110GcD7lQK1fqUYwIFav1Kg1hfACB988MEHF8CO4ziO4zgWwBWo9SsFahXAm2yyySabFMAiMW9nSMwTwKj1KwVq/RLAL7rooosuEsC1fqVArV8RwDxDYt7OkBDAhA8++OCDD8CSmLczJOYNwJ4hMW9nSAzAqqqqqqqqCsC4MyTm7QwJwMS8nSExbwfA0kUXXXTRBcDezpCYtzMEwOxXCtT6lQLA+OCDDz74AMAI1PqVArX+vyjm7QyJefu/QPjggw8++L9YCtT6lQL1v3Acx3Ecx/G/IF100UUX7b9QgVq/UqDmv4ClQK1fKeC/YJNNNtlk078Ab2dIzNu5vwBvZ0jM27k/YJNNNtlk0z+ApUCtXyngP1CBWr9SoOY/EF100UUX7T9wHMdxHMfxP1gK1PqVAvU/QPjggw8++D8g5u0MiXn7PwjU+pUCtf4/+OCDDz74AEDsVwrU+pUCQNzOkJi3MwRA0EUXXXTRBUDEvJ0hMW8HQLgzJObtDAlArKqqqqqqCkCcITFvZ0gMQJCYtzMk5g1AhA8++OCDD0A8Q2LezpAQQLR+pUCtXxFALrrooosuEkCo9SsFav0SQCIxb2dIzBNAmmyyySabFEAUqPUrBWoVQI7jOI7jOBZACB988MEHF0CAWr9SoNYXQPyVArV+pRhAdNFFF110GUDsDIl5O0MaQGhIzNsZEhtA4IMPPvjgG0Bcv1Kg1q8cQNT6lQK1fh1ATDbZZJNNHkDIcRzHcRwfQECtXylQ6x9AXHTRRRddIEAaEvN2hsQgQNavFKj1KyFAlE022WSTIUBQ61cK1PohQAyJeTtDYiJAyiabbLLJIkCGxLydITEjQERi3s6QmCNAAAAAAAAAJEA=","dtype":"float64","shape":[100]},"y":{"__ndarray__":"fS8aiGD9AsD2rICQcSX5vwukzuAcWwDAsPt0Z+YqAMAWfXB3YcP+vyYEKGoxgP+/p+k5zv6DA8DSfAsBchEAwG5jwGA6EAHAaHHlqOFKAcAo+XoVb0YBwG155HJ+NwHAWE+Ra8mXAcD/CuTD8TAAwL9UVH5FtwDAsK+d6WQxAsCmA+16UA0DwMEfdmPAfPy/MMv/hJwAAcB0gscqN1YCwI0ac9gBvvu/7JKMjQHy/78EcvYQF3YCwMr6XuvEOQHAfQSA7aN2AMAKQ5/XJh4BwKTLfwy8FQDAsu9+2wXF/7+qX0+jkND/v8cMyvmG6gHAEM2GH+fQAcD1L/+LMiwDwO0npiE31gDAmd5buIs/BMB572Z/bj0CwNb9NSuso/+/LcGUxgbjAcDPVrhMP08BwDrAWgNd8v6/8qPB72Fi/7/oANubs60AwM6kOTkk6ADAvhXw7EeTAsCfIUz6C3v+v/Rt7IkA1wDABBlTT0k/AMDqmBhgHh4AwL44xJ4YAwDA8S7ywYI1/b+8adaBaEP6v0bSH33K9Pq/vz5DHXMJ/b+imK8wsgz6v15fPDZHh/S/40gCa8f49b+WldSydJr4v81JTcS2Jfm/HhI+FzQ787+43b1fO37zv9WZ6r9gova/fCnDVBPV+L8mNYploxH0v5C8GWBOv/a/6jTQXpor7b/hMxsACpn0v9ooSug8vva/hho4soYT9r87lB6YzfTzv8hqgdVc8vO/Mn8ShYri7b9cTXeozNr2v1pE9iuigva/xCEgbqXA7b8KBRpv5+H2v56/UnCjO/K/ViZaVQSb7r/e7a+0JG3qv7RxWXjih+y/vDdnRRYz9r+AHd4u2Dz1v6DJWvLHDO6/N+PdzDBb9L84fOl+Givvv6HcivpLYfC/edYnH5T/8L91vNl0rAT3v9xtA6TrfPa/30lGJgCH87/5CukClFL0v2E7HtKQA+2/PCtJ03hl779sV3Ym56Twv254zehAG/O/bIT47Gor6b/nAAD7I8f1v1GEhQsg/vG/USqd2v7f87/yprK0Qcbyv7kh8AGXS/W/NzJwQVo69r8=","dtype":"float64","shape":[100]}},"selected":{"id":"1245"},"selection_policy":{"id":"1246"}},"id":"1218","type":"ColumnDataSource"},{"attributes":{"axis":{"id":"1187"},"dimension":1,"ticker":null},"id":"1190","type":"Grid"},{"attributes":{"bottom_units":"screen","fill_alpha":0.5,"fill_color":"lightgrey","left_units":"screen","level":"overlay","line_alpha":1.0,"line_color":"black","line_dash":[4,4],"line_width":2,"render_mode":"css","right_units":"screen","top_units":"screen"},"id":"1197","type":"BoxAnnotation"},{"attributes":{},"id":"1213","type":"BasicTickFormatter"},{"attributes":{"align":"center","text":"Model, random data and curve fit","text_font":"Titillium Web, sans-serif","text_font_size":{"value":"1.5rem"}},"id":"1173","type":"Title"},{"attributes":{},"id":"1179","type":"LinearScale"},{"attributes":{},"id":"1177","type":"DataRange1d"},{"attributes":{"source":{"id":"1232"}},"id":"1236","type":"CDSView"},{"attributes":{},"id":"1184","type":"BasicTicker"},{"attributes":{},"id":"1175","type":"DataRange1d"},{"attributes":{},"id":"1258","type":"Selection"},{"attributes":{"line_color":"red","line_width":5,"x":{"field":"x"},"y":{"field":"y"}},"id":"1233","type":"Line"},{"attributes":{"axis":{"id":"1183"},"ticker":null},"id":"1186","type":"Grid"},{"attributes":{},"id":"1259","type":"UnionRenderers"},{"attributes":{},"id":"1191","type":"PanTool"},{"attributes":{"line_dash":[6],"line_width":5,"x":{"field":"x"},"y":{"field":"y"}},"id":"1206","type":"Line"},{"attributes":{"overlay":{"id":"1197"}},"id":"1193","type":"BoxZoomTool"},{"attributes":{"line_alpha":0.1,"line_color":"red","line_width":5,"x":{"field":"x"},"y":{"field":"y"}},"id":"1234","type":"Line"},{"attributes":{"label":{"value":"curve fit"},"renderers":[{"id":"1235"}]},"id":"1247","type":"LegendItem"},{"attributes":{"axis_label_text_font":"Ubuntu Mono, monospace","axis_label_text_font_size":"1.2rem","formatter":{"id":"1211"},"major_label_text_font_size":"1rem","ticker":{"id":"1188"}},"id":"1187","type":"LinearAxis"},{"attributes":{},"id":"1188","type":"BasicTicker"},{"attributes":{},"id":"1245","type":"Selection"},{"attributes":{"data":{"x":{"__ndarray__":"AAAAAAAAJMBDYt7OkJgjwIbEvJ0hMSPAyiabbLLJIsANiXk7Q2IiwFDrVwrU+iHAk0022WSTIcDXrxSo9SshwBoS83aGxCDAXXTRRRddIMBArV8pUOsfwMdxHMdxHB/ATjbZZJNNHsDU+pUCtX4dwFq/UqDWrxzA4YMPPvjgG8BoSMzbGRIbwO4MiXk7QxrAdNFFF110GcD7lQK1fqUYwIFav1Kg1hfACB988MEHF8CO4ziO4zgWwBWo9SsFahXAm2yyySabFMAiMW9nSMwTwKj1KwVq/RLAL7rooosuEsC1fqVArV8RwDxDYt7OkBDAhA8++OCDD8CSmLczJOYNwJ4hMW9nSAzAqqqqqqqqCsC4MyTm7QwJwMS8nSExbwfA0kUXXXTRBcDezpCYtzMEwOxXCtT6lQLA+OCDDz74AMAI1PqVArX+vyjm7QyJefu/QPjggw8++L9YCtT6lQL1v3Acx3Ecx/G/IF100UUX7b9QgVq/UqDmv4ClQK1fKeC/YJNNNtlk078Ab2dIzNu5vwBvZ0jM27k/YJNNNtlk0z+ApUCtXyngP1CBWr9SoOY/EF100UUX7T9wHMdxHMfxP1gK1PqVAvU/QPjggw8++D8g5u0MiXn7PwjU+pUCtf4/+OCDDz74AEDsVwrU+pUCQNzOkJi3MwRA0EUXXXTRBUDEvJ0hMW8HQLgzJObtDAlArKqqqqqqCkCcITFvZ0gMQJCYtzMk5g1AhA8++OCDD0A8Q2LezpAQQLR+pUCtXxFALrrooosuEkCo9SsFav0SQCIxb2dIzBNAmmyyySabFEAUqPUrBWoVQI7jOI7jOBZACB988MEHF0CAWr9SoNYXQPyVArV+pRhAdNFFF110GUDsDIl5O0MaQGhIzNsZEhtA4IMPPvjgG0Bcv1Kg1q8cQNT6lQK1fh1ATDbZZJNNHkDIcRzHcRwfQECtXylQ6x9AXHTRRRddIEAaEvN2hsQgQNavFKj1KyFAlE022WSTIUBQ61cK1PohQAyJeTtDYiJAyiabbLLJIkCGxLydITEjQERi3s6QmCNAAAAAAAAAJEA=","dtype":"float64","shape":[100]},"y":{"__ndarray__":"FPjmHTarAMBdH0cBNqsAwBFBw9s1qwDApW+YqjWrAMDvKyhqNasAwPkytBU1qwDArB0FpzSrAMCBPvUVNKsAwI4e11czqwDAJU6sXjKrAMDDux0YMasAwOUrImwvqwDA22c5Oy2rAMC21xpcKqsAwNfoq5gmqwDAoR4FqiGrAMA9+jozG6sAwEzBiLoSqwDA5edcoAerAMCRVp8T+aoAwLEkVgLmqgDAPRCKBc2qAMDIXPRGrKoAwKT0jV6BqgDAgkCEJUmqAMAn/ll7/6kAwD1JBvmeqQDAbvOsjCCpAMAhnQL3eqgAwDH8hSGipwDAc1xiQoamAMBgKgrAEqUAwGAGc8MsowDA1XiNZLGgAMBJcJVZc50AwCwyJhA4mQDANmhaGLSTAMDfbL3RhowAwNHuZlw1gwDAJq7g9SR3AMAKTiYslWcAwGbxZr6aUwDAiWSipxw6AMDbu3yt1RkAwPVh0pi74v+/3V8FTn9+/78cdjIZPAT/v1SuZV3Xcf6/Jw1BPGTG/b+ECO7guQL9v3d6iyzpKfy/iM+8SV5B+7+QyQtShVD6v9YypVnuX/m/JOsMKyB4+L+ytCyubaD3v2qK8LUg3va/eL8VlSY09r/+N64DOKP1v2/BGR5SKvW/ocqAKU3H9L86nHIvaXf0v+BkNUy7N/S/is6FqHYF9L8x7UWwFd7zv/Eeg8Vrv/O/1OxZq6en87/3hGA9TZXzv0jEaAsrh/O/1TAau05887/isPbO+XPzv4Dedp2XbfO//gC1wbRo87/ql0wH+GTzvxYhmK8cYvO/5plx4O1f87/cMF4KQ17zv0qzrRf9XPO/yoYkPARc878m9GVDRlvzv17blUK1WvO/yI0ml0Za878zGWUh8lnzv8E6HK2xWfO/KhWtfYBZ87+FQ2L1WlnzvyoCo1E+WfO/ouAidyhZ87+fzkzKF1nzv4l9CBELWfO/1JylWwFZ87+UAT3z+VjzvxJvPUz0WPO/UpEn/O9Y878oT7ix7Fjzv1Up7i7qWPO/CC95ROhY878/qz/O5ljzv1gAtrDlWPO/eKvX1uRY878=","dtype":"float64","shape":[100]}},"selected":{"id":"1229"},"selection_policy":{"id":"1230"}},"id":"1205","type":"ColumnDataSource"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_multi":null,"active_scroll":"auto","active_tap":"auto","tools":[{"id":"1191"},{"id":"1192"},{"id":"1193"},{"id":"1194"},{"id":"1195"},{"id":"1196"}]},"id":"1198","type":"Toolbar"},{"attributes":{},"id":"1246","type":"UnionRenderers"},{"attributes":{},"id":"1194","type":"SaveTool"},{"attributes":{},"id":"1195","type":"ResetTool"},{"attributes":{"below":[{"id":"1183"}],"center":[{"id":"1186"},{"id":"1190"},{"id":"1216"}],"left":[{"id":"1187"}],"renderers":[{"id":"1208"},{"id":"1221"},{"id":"1235"}],"sizing_mode":"stretch_both","title":{"id":"1173"},"toolbar":{"id":"1198"},"x_range":{"id":"1175"},"x_scale":{"id":"1179"},"y_range":{"id":"1177"},"y_scale":{"id":"1181"}},"id":"1172","subtype":"Figure","type":"Plot"},{"attributes":{"data_source":{"id":"1205"},"glyph":{"id":"1206"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1207"},"selection_glyph":null,"view":{"id":"1209"}},"id":"1208","type":"GlyphRenderer"},{"attributes":{},"id":"1196","type":"HelpTool"},{"attributes":{"line_alpha":0.1,"line_dash":[6],"line_width":5,"x":{"field":"x"},"y":{"field":"y"}},"id":"1207","type":"Line"},{"attributes":{},"id":"1192","type":"WheelZoomTool"},{"attributes":{"label":{"value":"model"},"renderers":[{"id":"1208"}]},"id":"1217","type":"LegendItem"},{"attributes":{"click_policy":"hide","items":[{"id":"1217"},{"id":"1231"},{"id":"1247"}],"label_text_font":"Merriweather, serif","label_text_font_size":"1rem","location":"top_left"},"id":"1216","type":"Legend"},{"attributes":{"source":{"id":"1205"}},"id":"1209","type":"CDSView"}],"root_ids":["1172"]},"title":"Bokeh Application","version":"2.0.2"}}
+</script>
+<script type="text/javascript">
+  (function() {
+    var fn = function() {
+      Bokeh.safely(function() {
+        (function(root) {
+          function embed_document(root) {
+            
+          var docs_json = document.getElementById('1380').textContent;
+          var render_items = [{"docid":"7ef00221-24ea-427a-9c77-7082f9e32e8e","root_ids":["1172"],"roots":{"1172":"268ee2f2-b5e9-458b-ab85-03b00baff980"}}];
+          root.Bokeh.embed.embed_items(docs_json, render_items);
+        
+          }
+          if (root.Bokeh !== undefined) {
+            embed_document(root);
+          } else {
+            var attempts = 0;
+            var timer = setInterval(function(root) {
+              if (root.Bokeh !== undefined) {
+                clearInterval(timer);
+                embed_document(root);
+              } else {
+                attempts++;
+                if (attempts > 100) {
+                  clearInterval(timer);
+                  console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+                }
+              }
+            }, 10, root)
+          }
+        })(window);
+      });
+    };
+    if (document.readyState != "loading") fn();
+    else document.addEventListener("DOMContentLoaded", fn);
+  })();
+</script>
+        </div>
+      
+    </section>
+    <section class="text-section">
+      <div>
+        <p>we can also manually compare our initial parameters with with those from <code>curve_fit()</code>:</p>
+
+        </div>
+      
+    </section>
+    <section class="print-section">
+      <div>
+        <pre class="print-statement">initial parameters:    a=0.8744 b=-2.0836 c=1.3389 d=0.4991 </pre><pre class="print-statement">curve_fit parameters:  a=0.9508 b=-2.1243 c=1.2972 d=0.4129 </pre>
         </div>
       
     </section>
