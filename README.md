@@ -155,6 +155,7 @@ There's much more this could do:
 * server based mode - instead of running the python script locally and showing it on localhost, the python source
   is posted to a server which runs the script and renders the results at some URL for the develop (or anyone else
   with permissions) to view
+* ability to "import" or otherwise reference content in markdown files, rather than always using comments
 * a "zip mode" and renderer of "zip mode": zips all the assets need to render a document, you can then send that binary
   file to someone to view, they can display the zipped document without having to mess about with the command line to
   get the document extracted and ready to view

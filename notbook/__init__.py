@@ -25,6 +25,20 @@ def show_plot(plot, *, title: str = None, filename: str = None):
             frame = inspect.currentframe().f_back
             if plot.sizing_mode is None:
                 plot.sizing_mode = 'stretch_both'
+            if plot.plot_height is None:
+                plot.plot_height = 400
+            plot.title.text_font = 'Titillium Web, sans-serif'
+            plot.title.text_font_size = '1.5rem'
+            plot.title.align = 'center'
+            plot.legend.label_text_font = 'Merriweather, serif'
+            plot.legend.label_text_font_size = '1rem'
+
+            plot.xaxis.axis_label_text_font = 'Ubuntu Mono, monospace'
+            plot.xaxis.axis_label_text_font_size = '1.2rem'
+            plot.xaxis.major_label_text_font_size = '1rem'
+            plot.yaxis.axis_label_text_font = 'Ubuntu Mono, monospace'
+            plot.yaxis.axis_label_text_font_size = '1.2rem'
+            plot.yaxis.major_label_text_font_size = '1rem'
             bokeh_figure_to_html(plot, frame, title)
         else:
             if not filename:

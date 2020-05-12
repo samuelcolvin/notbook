@@ -9,10 +9,16 @@
 //  margin: 0.5rem 0 1rem;
 //}
 
+code {
+  background: #f3f4f4;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+}
+
 .code-block, .print-statement {
   margin: 0;
   font-family: $font-family-monospace;
-  color: $code-color;
+  color: $code-block-color;
   padding: 0.5rem 1.25rem;
   border-bottom: 1px solid $gray-600;
   &:first-child {
@@ -35,7 +41,7 @@
 
 .highlight, .raw, .print-statement {
   font-family: $font-family-monospace;
-  color: $code-color;
+  color: $code-block-color;
 }
 
 $comment: $gray-500;

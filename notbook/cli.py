@@ -10,7 +10,7 @@ from .watch import watch as _watch
 
 cli = typer.Typer()
 file_default = typer.Argument(..., exists=True, file_okay=True, dir_okay=True, readable=True)
-dev_mode = False
+dev_mode = True
 
 
 @cli.command()

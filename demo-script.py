@@ -1,71 +1,99 @@
 from notbook import show_plot
 from bokeh.plotting import figure
-from bokeh.sampledata.iris import flowers
+import numpy as np
+import scipy.optimize as opt
 
 """md
-# This is a title
+# Logistic curve fitting example
 
-This should be a **section** of markdown.
+(Example is taken mostly from 
+[here](https://ipython-books.github.io/93-fitting-a-function-to-data-with-nonlinear-least-squares/))
 
-Here we have bullets:
-
-* one bullet
-* another bullet
+We define a logistic function with four parameters:
 
 ```maths
-When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are
-  \[x = {-b \pm \sqrt{b^2-4ac} \over 2a}.\]
+  \[f_{a,b,c,d}(x) = \frac{a}{1 + \exp\left(-c (x-d)\right)} + b\]
 ```
 """
 
-# { Testing Section
-question = 422
-foobar = 123
-print('answer:', question + 2)
+# {
+def f(x, a, b, c, d):
+    return a / (1. + np.exp(-c * (x - d))) + b
+# } The equation we'll try and fit
+
+"""md
+Define some random parameters:
+"""
+# {
+a, c = np.random.exponential(size=2)
+b, d = np.random.randn(2)
+# }
+
+# we actually cheat here and keep a "good" set of paramters
+a = 0.8744
+b = -2.0836
+c = 1.3389
+d = 0.4991
+
+"""md
+which are:
+"""
+print(f'a={a:0.4f} b={b:0.4f} c={c:0.4f} d={d:0.4f}')
+
+"""md
+Now, we generate random data points by using the sigmoid function and adding a bit of noise:
+"""
+# {
+n = 100
+x = np.linspace(-10, 10, n)
+y_model = f(x, a, b, c, d)
+y = y_model + a * 0.2 * np.random.randn(n)
 # }
 
 """md
-another section of **markdown**.
+Plot that to see how it looks:
 """
 
-print('this should be shown as a standalone code block')
-print({'foo': 'bar', 2: 3, 4: list(range(5)), (1, 2): range(10)}, [1, 2, 3])
-print('last part of print')
+p = figure(title='Model and random data')
+p.line(x, y_model, color='black', line_dash='dashed', line_width=5, legend_label='model')
+p.circle(x, y, size=10, legend_label='random data')
+p.legend.location = 'top_left'
+p.legend.click_policy = 'hide'
+show_plot(p)
 
 """md
-different
+We now assume that we only have access to the data points and not the underlying generative function. 
+These points could have been obtained during an experiment. 
+
+By looking at the data, the points appear to approximately follow a sigmoid, so we may want to try to fit such a 
+curve to the points. 
+That's what curve fitting is about. 
+
+SciPy's [`curve_fit()`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html) 
+function allows us to fit a curve defined by an 
+arbitrary Python function to the data:
 """
-print(1, 2, '3')
 
 # {
-import re
-RE_URI_NOT_ALLOWED = re.compile(r'[^a-zA-Z0-9_\-/.]')
-RE_HTML_SYMBOL = re.compile(r'&(?:#\d{2,}|[a-z0-9]{2,});')
-RE_TITLE_NOT_ALLOWED = re.compile(r'[^a-z0-9_\-]')
-RE_REPEAT_DASH = re.compile(r'-{2,}')
+(a_, b_, c_, d_), _ = opt.curve_fit(f, x, y)
 
+"""md
+And use those parameters to estimate our underlying curve
+"""
+y_fit = f(x, a_, b_, c_, d_)
+# }
 
-def slugify(v, *, path_like=True):
-    v = v.replace(' ', '-').lower()
-    if path_like:
-        v = RE_URI_NOT_ALLOWED.sub('', v)
-    else:
-        v = RE_HTML_SYMBOL.sub('', v)
-        v = RE_TITLE_NOT_ALLOWED.sub('', v)
-    return RE_REPEAT_DASH.sub('-', v).strip('_-')
-
-
-print('slugify:', slugify('This is - a sentence'))
-# } useful bit of code about this
-
-
-colormap = {'setosa': 'red', 'versicolor': 'green', 'virginica': 'blue'}
-colors = [colormap[x] for x in flowers['species']]
-
-p = figure(title='Iris Morphology')
-p.xaxis.axis_label = 'Petal Length'
-p.yaxis.axis_label = 'Petal Width'
-
-p.circle(flowers['petal_length'], flowers['petal_width'], color=colors, fill_alpha=0.2, size=10)
-
+p = figure(title='Model, random data and curve fit')
+p.line(x, y_model, color='black', line_dash='dashed', line_width=5, legend_label='model')
+p.circle(x, y, size=10, legend_label='random data')
+p.line(x, y_fit, color='red', line_width=5, legend_label='curve fit')
+p.legend.location = 'top_left'
+p.legend.click_policy = 'hide'
 show_plot(p)
+
+"""md
+we can also manually compare our initial parameters with with those from `curve_fit()`:
+"""
+
+print(f'initial parameters:    a={a:0.4f} b={b:0.4f} c={c:0.4f} d={d:0.4f}')
+print(f'curve_fit parameters:  a={a_:0.4f} b={b_:0.4f} c={c_:0.4f} d={d_:0.4f}')

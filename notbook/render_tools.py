@@ -27,14 +27,10 @@ class CustomHtmlRenderer(HtmlRenderer):
         else:
             return code_block(lang, text)
 
-    @staticmethod
-    def list(content, is_ordered, is_block):
-        if not is_ordered and len(DL_REGEX.findall(content)) == len(LI_REGEX.findall(content)):
-            return '<dl>\n' + DL_REGEX.sub(r'  <dt>\1</dt><dd>\2</dd>', content) + '</dl>'
-        elif is_ordered:
-            return f'<ol>\n{content}</ol>'
-        else:
-            return f'<ul>\n{content}</ul>'
+    def link(self, content, url, title=''):
+        maybe_title = ' title="%s"' % escape_html(title) if title else ''
+        url = escape_html(url)
+        return f'<a href="{escape_html(url)}" target="_blank"{maybe_title}>{content}</a>'
 
     @staticmethod
     def header(content, level):
