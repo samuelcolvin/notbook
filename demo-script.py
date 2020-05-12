@@ -48,6 +48,9 @@ def slugify(v, *, path_like=True):
         v = RE_HTML_SYMBOL.sub('', v)
         v = RE_TITLE_NOT_ALLOWED.sub('', v)
     return RE_REPEAT_DASH.sub('-', v).strip('_-')
+
+
+print('slugify:', slugify('This is - a sentence'))
 # } useful bit of code about this
 
 

@@ -5,8 +5,11 @@ black = black -S -l 120 --target-version py37 notbook
 .PHONY: install
 install:
 	pip install -U setuptools pip
-	pip install -U -r requirements.txt
-	pip install -U -e .
+	pip install -e .
+
+.PHONY: install-all
+install-all: install
+	pip install -r requirements/all.txt
 
 .PHONY: format
 format:

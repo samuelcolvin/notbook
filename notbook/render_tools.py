@@ -1,17 +1,22 @@
 import re
+import traceback
+from typing import Literal
 
 from markupsafe import Markup
 from misaka import HtmlRenderer, Markdown, escape_html
 from pygments import highlight as pyg_highlight
-from pygments.formatters.html import HtmlFormatter
-from pygments.lexers import get_lexer_by_name
+from pygments.formatters import HtmlFormatter, Terminal256Formatter
+from pygments.lexers import Python3TracebackLexer, get_lexer_by_name
 from pygments.util import ClassNotFound
 
-__all__ = 'render_markdown', 'code_block', 'highlight_code', 'slugify'
+__all__ = 'render_markdown', 'code_block', 'highlight_code', 'slugify', 'ExecException'
 
 MD_EXTENSIONS = 'fenced-code', 'strikethrough', 'no-intra-emphasis', 'tables'
 DL_REGEX = re.compile('<li>(.*?)::(.*?)</li>', re.S)
 LI_REGEX = re.compile('<li>(.*?)</li>', re.S)
+tb_lexer = Python3TracebackLexer()
+shell_formatter = Terminal256Formatter(style='vim')
+html_formatter = HtmlFormatter(nowrap=True)
 
 
 class CustomHtmlRenderer(HtmlRenderer):
@@ -55,8 +60,7 @@ def highlight_code(format: str, code: str) -> Markup:
         lexer = None
 
     if lexer:
-        formatter = HtmlFormatter(nowrap=True)
-        h = pyg_highlight(code, lexer, formatter).strip('\n')
+        h = pyg_highlight(code, lexer=lexer, formatter=html_formatter).strip('\n')
         return Markup(f'<span class="highlight">{h}</span>')
     else:
         return Markup(f'<span class="raw">{escape_html(code)}</span>')
@@ -76,3 +80,20 @@ def slugify(v, *, path_like=True):
         v = RE_HTML_SYMBOL.sub('', v)
         v = RE_TITLE_NOT_ALLOWED.sub('', v)
     return RE_REPEAT_DASH.sub('-', v).strip('_-')
+
+
+class ExecException(Exception):
+    def __init__(self, exc_info):
+        self.exc_info = exc_info
+
+    def format(self, format: Literal['html', 'shell']) -> str:
+        stack = traceback.format_exception(*self.exc_info)
+        # remove the fist element in the trace which refers to this file
+        # (element 0 is the standard "Traceback (most recent call last):" message, hence removing element 1)
+        stack.pop(1)
+        tb = ''.join(stack)
+        if format == 'html':
+            h = pyg_highlight(tb, lexer=tb_lexer, formatter=html_formatter).rstrip('\n')
+            return Markup(f'<span class="highlight">{h}</span>')
+        else:
+            return pyg_highlight(tb, lexer=tb_lexer, formatter=shell_formatter).rstrip('\n')

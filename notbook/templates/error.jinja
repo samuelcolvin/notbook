@@ -1,0 +1,10 @@
+{% extends 'base.jinja' %}
+
+{% block main %}
+  <h2>Execution Failed</h2>
+  <div>
+    <pre class="code-block">
+      {{- exception -}}
+    </pre>
+  </div>
+{% endblock %}

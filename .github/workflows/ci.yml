@@ -28,7 +28,7 @@ jobs:
 
     - name: install dependencies
       run: |
-        make install
+        make install-all
         pip freeze
 
     - name: lint
@@ -38,7 +38,7 @@ jobs:
       run: notbook build demo-script.py
 
   pages:
-    name: 'Deploy to GitHub Pages'
+    name: 'Deploy to github pages'
     needs: test
     if: "success() && github.ref == 'refs/heads/master'"
     runs-on: ubuntu-latest
@@ -52,7 +52,9 @@ jobs:
           python-version: '3.8'
 
       - name: install
-        run: make install
+        run: |
+          make install
+          pip install -r requirements/demo.txt
 
       - name: build
         run: notbook build demo-script.py

@@ -58,8 +58,8 @@ async def moved(request):
     raise HTTPMovedPermanently('/')
 
 
-def build_in_subprocess(exec_file_path: Path, output_dir: Path):
-    process = Process(target=build, args=(exec_file_path, output_dir), kwargs=dict(reload=True))
+def build_in_subprocess(exec_file_path: Path, output_dir: Path, dev: bool):
+    process = Process(target=build, args=(exec_file_path, output_dir), kwargs=dict(reload=True, dev=dev))
     process.start()
     process.join()
 
@@ -67,11 +67,12 @@ def build_in_subprocess(exec_file_path: Path, output_dir: Path):
 async def rebuild(app: web.Application):
     exec_file_path: Path = app['exec_file_path']
     output_dir: Path = app['output_dir']
+    dev: bool = app['dev']
     watcher = awatch(exec_file_path, watcher_cls=PythonWatcher)
     async for _ in watcher:
         print(f're-running {exec_file_path}...')
         start = time()
-        await watcher.run_in_executor(build_in_subprocess, exec_file_path, output_dir)
+        await watcher.run_in_executor(build_in_subprocess, exec_file_path, output_dir, dev)
         for ws in app[WS]:
             await ws.send_str('reload')
         c = len(app[WS])
@@ -82,15 +83,16 @@ async def startup(app):
     asyncio.get_event_loop().create_task(rebuild(app))
 
 
-def watch(exec_file_path: Path, output_dir: Path):
-    prepare(output_dir)
+def watch(exec_file_path: Path, output_dir: Path, dev: bool = False):
+    if not dev:
+        prepare(output_dir)
     print(f'running {exec_file_path}...')
-    build_in_subprocess(exec_file_path, output_dir)
+    build_in_subprocess(exec_file_path, output_dir, dev)
 
     app = web.Application()
     app.on_startup.append(startup)
     app.update(
-        exec_file_path=exec_file_path, output_dir=output_dir, build=build, websockets=set(),
+        exec_file_path=exec_file_path, output_dir=output_dir, build=build, dev=dev, websockets=set(),
     )
     app.add_routes(
         [

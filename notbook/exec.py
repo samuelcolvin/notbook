@@ -3,6 +3,7 @@ import json
 import os
 import re
 import sys
+from io import BufferedWriter
 from operator import attrgetter
 from pathlib import Path
 from typing import Any, List, Optional, Union
@@ -11,6 +12,7 @@ from devtools import PrettyFormat
 
 from . import context
 from .models import CodeBlock, PlotBlock, PrintArg, PrintBlock, PrintStatement, Section, TextBlock
+from .render_tools import ExecException
 
 __all__ = ('exec_file',)
 
@@ -26,12 +28,11 @@ def exec_file(file: Path) -> List[Section]:
     os.environ['NOTBOOK'] = '1'
     mp = MockPrint(file)
     exec_globals = dict(print=mp)
-    code = compile(file_text, file.name, 'exec')
+    code = compile(file_text, str(file), 'exec')
     try:
         exec(code, exec_globals)
     except Exception:
-        raise
-        # tb = traceback.format_exception(*sys.exc_info())
+        raise ExecException(sys.exc_info())
 
     lines: List[Union[str, PrintStatement, PlotBlock]] = file_text.split('\n')
 
@@ -175,13 +176,14 @@ class MockPrint:
         self.file = file
         self.statements: List[PrintStatement] = []
 
-    def __call__(self, *args, file=default, flush=None):
+    def __call__(self, *args, file: Optional[BufferedWriter] = default, flush=None):
         if file is not default:
             print(*args, file=file, flush=flush)
             return
         frame = inspect.currentframe()
         if sys.version_info >= (3, 8):
             frame = frame.f_back
+
         if not self.file.samefile(frame.f_code.co_filename):
             raise RuntimeError('in another file, todo')
 

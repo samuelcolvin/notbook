@@ -5,9 +5,10 @@ from typing import Dict, Generator, List
 from jinja2 import Environment, PackageLoader
 
 from .models import CodeBlock, PlotBlock, PrintBlock, PrintStatement, Section, TextBlock
-from .render_tools import highlight_code, render_markdown
+from .render_tools import ExecException, highlight_code, render_markdown
 
 THIS_DIR = Path(__file__).parent.resolve()
+__all__ = 'render', 'render_exception'
 
 css_url = (
     'https://gistcdn.githack.com/samuelcolvin/647671890d647695930ff74f1ca5bfc2/raw/'
@@ -18,20 +19,27 @@ reload_js_url = (
 )
 
 
-def render(sections: List[Section], *, reload: bool = False, dev: bool = False) -> Dict[Path, str]:
+def render(sections: List[Section], *, reload: bool = False, dev: bool = False) -> str:
+    template = get_env(reload, dev).get_template('main.jinja')
+    return template.render(
+        sections=render_sections(sections),
+        bokeh_plot=any(isinstance(s.block, PlotBlock) and s.block.format == 'bokeh' for s in sections),
+        title='Notbook',
+    )
+
+
+def render_exception(exc: ExecException, *, reload: bool = False, dev: bool = False) -> str:
+    template = get_env(reload, dev).get_template('error.jinja')
+    return template.render(exception=exc.format('html'), title='Notbook')
+
+
+def get_env(reload: bool, dev: bool) -> Environment:
     env = Environment(loader=PackageLoader('notbook'), autoescape=True)
     env.globals.update(highlight=highlight_code, css_url='/assets/main.css' if dev else css_url)
     if reload:
         env.globals['reload_js_url'] = '/assets/reload.js' if dev else reload_js_url
     env.filters.update(is_simple=is_simple)
-    template = env.get_template('main.jinja')
-    return {
-        Path('index.html'): template.render(
-            sections=render_sections(sections),
-            bokeh_plot=any(isinstance(s.block, PlotBlock) and s.block.format == 'bokeh' for s in sections),
-            title='Notbook',
-        )
-    }
+    return env
 
 
 def render_sections(sections: List[Section]) -> Generator[Dict[str, str], None, None]:

@@ -6,10 +6,15 @@ function reload_page() {
   location.reload(true)
 }
 
-const back_off_times = [200, 500, 1000, 2000, 2000, 2000, 5000, 5000, 5000, 5000, 30000, 30000]
-
 async function wait_for_server (to_run) {
-  for (let back_off of back_off_times) {
+  let back_off = 50
+  while (true) {
+    if (back_off < 2000) {
+      back_off = back_off * 2
+    }
+    if (back_off > 2000) {
+      back_off = 2000
+    }
     try {
       const r = await fetch('/.reload/up/')
       if (r.status !== 200) {
@@ -27,7 +32,6 @@ async function wait_for_server (to_run) {
     to_run()
     return
   }
-  console.warn('page reload timed out, could not connect')
 }
 
 class ReloadWebsocket {

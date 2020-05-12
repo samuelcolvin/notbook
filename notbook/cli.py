@@ -4,6 +4,7 @@ from time import time
 import typer
 
 from . import main
+from .render_tools import ExecException
 from .version import VERSION
 from .watch import watch as _watch
 
@@ -19,8 +20,14 @@ def build(
 ):
     print(f'executing {file} and saving output to {output_dir}...')
     start = time()
-    main.build(file, output_dir, dev=dev_mode)
-    print(f'build completed in {time() - start:0.3f}s')
+    try:
+        main.build(file, output_dir, dev=dev_mode)
+    except ExecException as exc:
+        print(exc.format('shell'))
+        print(f'build failed after {time() - start:0.3f}s')
+        raise typer.Exit(1)
+    else:
+        print(f'build completed in {time() - start:0.3f}s')
 
 
 @cli.command()
@@ -28,7 +35,7 @@ def watch(
     file: Path = file_default,
     output_dir: Path = typer.Argument(Path('.live'), file_okay=False, dir_okay=True, readable=True),
 ):
-    _watch(file, output_dir)
+    _watch(file, output_dir, dev=dev_mode)
 
 
 def version_callback(value: bool):
