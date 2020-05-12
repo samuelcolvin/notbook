@@ -12,7 +12,7 @@ __all__ = 'render', 'render_exception'
 
 css_url = (
     'https://gistcdn.githack.com/samuelcolvin/647671890d647695930ff74f1ca5bfc2/raw/'
-    'e857b84867ac2f375aa5c86af8b86b5d4c97d5c5/notbook.css'
+    '121978e152dba5e97657638da317eb91edf539c7/notbook.css'
 )
 reload_js_url = (
     'https://rawcdn.githack.com/samuelcolvin/notbook/7e3317b514ae7ecc8f56ea783ed701153429ea07/assets/js/reload.js'

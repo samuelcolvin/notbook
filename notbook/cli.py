@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from time import time
 
@@ -10,7 +11,7 @@ from .watch import watch as _watch
 
 cli = typer.Typer()
 file_default = typer.Argument(..., exists=True, file_okay=True, dir_okay=True, readable=True)
-dev_mode = True
+dev_mode = 'NOTBOOK_DEV' in os.environ
 
 
 @cli.command()
