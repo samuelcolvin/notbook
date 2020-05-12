@@ -3,28 +3,50 @@
 @import "code";
 
 html, body {
-  font-family: 'Merriweather', serif;
+  font-family: $font-family-sans-serif;
   margin: 0;
   padding: 0;
 }
 
-.main {
-  padding-bottom: 80px;
+nav {
+  background: $gray-100;
+  padding-bottom: 0.5rem;
+  border-bottom: 4px solid $gray-400;
+}
+
+.repo-link {
+  img {
+    width: 24px;
+  }
+  color: $body-color !important;
+  text-decoration: none !important;
+}
+
+.page-width, article {
+  max-width: 940px;
+  margin: 0 auto;
+}
+
+article {
+  padding: 1rem 0.5rem 3rem;
 }
 
 section {
   margin-bottom: 1rem;
 }
 
-.left {
-  background: #f5f7f9;
-  min-height: 100vh;
-  height: auto;
-  &.title {
-    border-right: 4px solid $gray-400;
-  }
-}
-
 .cursor-help {
   cursor: help;
+}
+
+main {
+  h1, .h1 {
+    font-size: $h2-font-size;
+  }
+  h2, .h2 {
+    font-size: $h3-font-size;
+  }
+  h3, .h3 {
+    font-size: $h4-font-size;
+  }
 }

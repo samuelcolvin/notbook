@@ -1,12 +1,14 @@
 @import "DL/bootstrap-scss/functions";
 @import "DL/bootstrap-scss/variables";
 
+$font-family-sans-serif: 'Merriweather', serif;
+$font-family-monospace: 'Ubuntu Mono', monospace;
+$headings-font-family: 'Titillium Web', sans-serif;
+
 $code-font-size: 100%;
 $code-background: #282a36;
 $code-color: $gray-800;
 $code-block-color: #f8f8f2;
-$font-family-monospace: 'Ubuntu Mono', monospace;
-$headings-font-family: 'Titillium Web', sans-serif;
 
 $h1-font-size: $font-size-base * 2;
 $h2-font-size: $font-size-base * 1.75;

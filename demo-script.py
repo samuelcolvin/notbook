@@ -4,6 +4,8 @@ import numpy as np
 import scipy.optimize as opt
 
 """md
+_This is an example of a better way to work on and display numerical python code._
+
 # Logistic curve fitting example
 
 (Example is taken mostly from 

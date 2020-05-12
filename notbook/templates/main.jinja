@@ -47,6 +47,9 @@
       {% endif %}
     </section>
   {%- endfor %}
+{% endblock %}
+
+{% block js %}
   <script>
     MathJax = {startup: {elements: ['p.equation']}, svg: {scale: 1.2}}
     show_eq = () => document.querySelectorAll('p.equation').forEach(e => e.classList.remove('d-none'))

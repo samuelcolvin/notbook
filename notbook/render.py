@@ -10,13 +10,13 @@ from .render_tools import ExecException, highlight_code, render_markdown
 THIS_DIR = Path(__file__).parent.resolve()
 __all__ = 'render', 'render_exception'
 
-css_url = (
+assets_gist = (
     'https://gistcdn.githack.com/samuelcolvin/647671890d647695930ff74f1ca5bfc2/raw/'
-    '121978e152dba5e97657638da317eb91edf539c7/notbook.css'
+    '9f925f043fee5f32345f76d45dd1c6dbde4d4315'
 )
-reload_js_url = (
-    'https://rawcdn.githack.com/samuelcolvin/notbook/7e3317b514ae7ecc8f56ea783ed701153429ea07/assets/js/reload.js'
-)
+github_icon_url = f'{assets_gist}/github.png'
+css_url = f'{assets_gist}/notbook.css'
+reload_js_url = f'{assets_gist}/reload.js'
 
 
 def render(sections: List[Section], *, reload: bool = False, dev: bool = False) -> str:
@@ -24,18 +24,24 @@ def render(sections: List[Section], *, reload: bool = False, dev: bool = False) 
     return template.render(
         sections=render_sections(sections),
         bokeh_plot=any(isinstance(s.block, PlotBlock) and s.block.format == 'bokeh' for s in sections),
-        title='Notbook',
     )
 
 
 def render_exception(exc: ExecException, *, reload: bool = False, dev: bool = False) -> str:
     template = get_env(reload, dev).get_template('error.jinja')
-    return template.render(exception=exc.format('html'), title='Notbook')
+    return template.render(exception=exc.format('html'))
 
 
 def get_env(reload: bool, dev: bool) -> Environment:
     env = Environment(loader=PackageLoader('notbook'), autoescape=True)
-    env.globals.update(highlight=highlight_code, css_url='/assets/main.css' if dev else css_url)
+    env.globals.update(
+        highlight=highlight_code,
+        title='Notbook',
+        description='An experiment in displaying python scripts.',
+        css_url='/assets/main.css' if dev else css_url,
+        github_icon_url=github_icon_url,
+        repo='samuelcolvin/notbook',
+    )
     if reload:
         env.globals['reload_js_url'] = '/assets/reload.js' if dev else reload_js_url
     env.filters.update(is_simple=is_simple)

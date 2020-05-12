@@ -25,8 +25,8 @@ def show_plot(plot, *, title: str = None, filename: str = None):
             frame = inspect.currentframe().f_back
             if plot.sizing_mode is None:
                 plot.sizing_mode = 'stretch_both'
-            if plot.plot_height is None:
-                plot.plot_height = 400
+            if plot.aspect_ratio is None:
+                plot.aspect_ratio = 1.78
             plot.title.text_font = 'Titillium Web, sans-serif'
             plot.title.text_font_size = '1.5rem'
             plot.title.align = 'center'

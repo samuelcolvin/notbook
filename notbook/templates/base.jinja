@@ -5,27 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="{{ css_url }}" rel="stylesheet">
     <title>{{ title }}</title>
+    <meta name="description" content="{{ description }}">
   </head>
   <body>
-    <div class="row">
-      <div class="col-1 left"></div>
-      <div class="col-3 left title text-right pt-4">
-        <h1>{{ title }}</h1>
-        <p>An experiment in displaying python scripts.</p>
-      </div>
-      <div class="col-6 pt-4 main">
-        {% if reload_js_url -%}
-          <div class="text-right mb-2">
-            <span class="h4">
-              <span id="connection-state" class="badge badge-secondary cursor-help">waiting...</span>
-            </span>
+    <nav>
+      <div class="page-width">
+        <div class="d-flex justify-content-between align-items-baseline">
+          <div>
+            <h1>{{ title }}</h1>
           </div>
-        {%- endif %}
+          <div>
+            <a class="repo-link" href="https://github.com/{{ repo }}" target="_blank" title="view on github">
+              <img class="mr-1" src="{{ github_icon_url }}"/>
+              {{ repo }}
+            </a>
+          </div>
+        </div>
+        <small>{{ description }}</small>
+      </div>
+    </nav>
+    <article>
+{#      <h1>{{ title }}</h1>#}
+{#      <p>An experiment in displaying python scripts.</p>#}
+      {% if reload_js_url -%}
+        <div class="text-right mb-2">
+          <span class="h4">
+            <span id="connection-state" class="badge badge-secondary cursor-help">waiting...</span>
+          </span>
+        </div>
+      {%- endif -%}
+      <main>
         {% block main %}
         {% endblock %}
-      </div>
-    </div>
+      </main>
+    </article>
   </body>
+  {% block js %}
+  {% endblock %}
   {% if reload_js_url -%}
     <script src="{{ reload_js_url }}"></script>
   {%- endif %}
