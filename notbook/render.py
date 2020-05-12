@@ -12,7 +12,7 @@ __all__ = 'render', 'render_exception'
 
 assets_gist = (
     'https://gistcdn.githack.com/samuelcolvin/647671890d647695930ff74f1ca5bfc2/raw/'
-    '9f925f043fee5f32345f76d45dd1c6dbde4d4315'
+    '9bdb8ecebe25293cad8332cbb2a79d844cdfd9a3'
 )
 github_icon_url = f'{assets_gist}/github.png'
 css_url = f'{assets_gist}/notbook.css'

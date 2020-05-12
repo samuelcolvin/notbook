@@ -23,7 +23,7 @@ class CustomHtmlRenderer(HtmlRenderer):
     @staticmethod
     def blockcode(text, lang) -> str:
         if lang.lower() in {'math', 'maths', 'eq', 'equation'}:
-            return f'<p class="equation d-none">{escape_html(text)}</p>'
+            return f'<p class="equation">{escape_html(text)}</p>'
         else:
             return code_block(lang, text)
 

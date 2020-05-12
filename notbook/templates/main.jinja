@@ -51,10 +51,13 @@
 
 {% block js %}
   <script>
-    MathJax = {startup: {elements: ['p.equation']}, svg: {scale: 1.2}}
-    show_eq = () => document.querySelectorAll('p.equation').forEach(e => e.classList.remove('d-none'))
+    MathJax = {
+      startup: {elements: ['p.equation']},
+      svg: {scale: 1.2},
+      options: {renderActions: {addMenu: [0, '', '']}},
+    }
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js" crossorigin="anonymous" onload="show_eq()">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js" crossorigin="anonymous">
   </script>
 
   {%- if bokeh_plot %}

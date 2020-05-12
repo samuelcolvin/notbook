@@ -50,3 +50,10 @@ main {
     font-size: $h4-font-size;
   }
 }
+
+.equation {
+  color: white;
+  mjx-container {
+    color: $body-color;
+  }
+}
