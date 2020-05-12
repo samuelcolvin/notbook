@@ -120,7 +120,7 @@ That document can be built either using:
 * `notbook build my-logic.py` - where the HTML document is built once and the process exists, if execution raises
   an exception, no document is built and the processes exits with code `1`.
 * or, `notbook watch my-logic.py` - where the file is watched and a web-server is started showing the document,
-  when the file changes the HTML document is updated and the page automatically updates giving instant feedback
+  when the file changes the HTML document is updated and the page automatically updates giving almost instant feedback
 
 The python script(s) containing all logic:
  * only contain valid python syntax
@@ -139,7 +139,8 @@ currently using notebooks or excel.
 
 ### Disadvantages
 
-* perhaps in some scenarios slightly slower than running code in an existing python process
+* perhaps in some scenarios slightly slower than running code in an existing python process 
+  (this is currently exacerbated by [this issue with bokeh](https://github.com/bokeh/bokeh/issues/10007))
 
 ### Further enhancements
 

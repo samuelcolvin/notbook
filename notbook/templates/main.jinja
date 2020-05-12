@@ -47,16 +47,16 @@
       {% endif %}
     </section>
   {%- endfor %}
-  {%- if bokeh_plot %}
-    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.0.2.min.js"
-          integrity="sha384-ufR9RFnRs6lniiaFvtJziE0YeidtAgBRH6ux2oUItHw5WTvE1zuk9uzhUU/FJXDp"
-          crossorigin="anonymous"></script>
-  {% endif %}
   <script>
     MathJax = {startup: {elements: ['p.equation']}, svg: {scale: 1.2}}
     show_eq = () => document.querySelectorAll('p.equation').forEach(e => e.classList.remove('d-none'))
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js" crossorigin="anonymous" onload="show_eq()">
-
   </script>
+
+  {%- if bokeh_plot %}
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.0.2.min.js"
+          integrity="sha384-ufR9RFnRs6lniiaFvtJziE0YeidtAgBRH6ux2oUItHw5WTvE1zuk9uzhUU/FJXDp"
+          crossorigin="anonymous"></script>
+  {% endif %}
 {% endblock %}
