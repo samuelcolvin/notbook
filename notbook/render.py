@@ -15,7 +15,7 @@ css_url = (
     'e857b84867ac2f375aa5c86af8b86b5d4c97d5c5/notbook.css'
 )
 reload_js_url = (
-    'https://rawcdn.githack.com/samuelcolvin/notbook/b6dd58381013059660a8780ac8e8a2ad689a00f1/assets/js/reload.js'
+    'https://rawcdn.githack.com/samuelcolvin/notbook/7e3317b514ae7ecc8f56ea783ed701153429ea07/assets/js/reload.js'
 )
 
 

@@ -21,8 +21,11 @@ html_formatter = HtmlFormatter(nowrap=True)
 
 class CustomHtmlRenderer(HtmlRenderer):
     @staticmethod
-    def blockcode(text, lang):
-        return code_block(lang, text)
+    def blockcode(text, lang) -> str:
+        if lang.lower() in {'math', 'maths', 'eq', 'equation'}:
+            return f'<p class="equation d-none">{escape_html(text)}</p>'
+        else:
+            return code_block(lang, text)
 
     @staticmethod
     def list(content, is_ordered, is_block):
