@@ -103,8 +103,8 @@ above and the reason most experience develops eschew both.**
 
 # My proposed alternative:
 
-Here my MVP is called "notbook", but if anyone actually wants to use it, it should be renamed to avoid confusion
-with Jupyter Notebooks.
+(Here my MVP is called "notbook", but if anyone actually wants to use it, it should be renamed to avoid confusion
+with Jupyter Notebooks.)
 
 A program that executes a python script, and renders an HTML document with:
 * sections of the code, smartly rendered
@@ -115,6 +115,11 @@ A program that executes a python script, and renders an HTML document with:
   inputs to calculations
 * (not yet built) link to imported python modules which can be rendered recursively as more hybrid documents or just 
   as highlighted python
+
+![Notbook watch mod screen capture](screen.fig "Notbook watch mod screen capture")
+
+**The document rendered from the `demo-script.py` script in this repo an be seen 
+[here](https://samuelcolvin.github.io/notbook/).**
 
 That document can be built either using:
 * `notbook build my-logic.py` - where the HTML document is built once and the process exists, if execution raises
