@@ -39,6 +39,7 @@ setup(
     url='https://github.com/samuelcolvin/notbook',
     license='MIT',
     packages=['notbook'],
+    package_data={'notbook': ['templates/*.jinja']},
     entry_points="""
         [console_scripts]
         notbook=notbook.__main__:cli
