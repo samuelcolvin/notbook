@@ -3,6 +3,9 @@
 An argument that [Jupyter Notebooks](https://jupyter.org/) are conceptually flawed just as spreadsheets are - 
 **the (python) world needs a successor.**
 
+See [this discussion on reddit](https://www.reddit.com/r/Python/comments/givwa6/jupyter_notebooks_are_flawed_ive_built_a_demo_of/)
+and notbook and alternatives.
+
 To try and convince you of that I've built a quick demo of on alternative. 
 TL;DR [here's](https://samuelcolvin.github.io/notbook/) an example of the kind of document that's generated.
 
